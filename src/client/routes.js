@@ -15,6 +15,11 @@ const DetailBlockList = Loadable({
   loading: Loading,
 });
 
+const DetailIntent = Loadable({
+  loader: () => import('./components/Details/DetailIntent'),
+  loading: Loading,
+});
+
 const BlameList = Loadable({
   loader: () => import('./views/Blames/list'),
   loading: Loading,
@@ -23,6 +28,7 @@ const BlameList = Loadable({
 const routes = [
   { path: '/bot/:bot_name/scnario',  exact: true, name: '봇 시나리오', component: DetailScnario },
   { path: '/bot/:bot_name/scnario/:scenario_name?',  name: '봇 블록', component: DetailBlockList },
+  { path: '/bot/:bot_name/intent/:intent_name',  name: '새 블록', component: DetailIntent },
   { path: '/bot/blame/list', name: 'Common List Component', component: BlameList }
 ];
 

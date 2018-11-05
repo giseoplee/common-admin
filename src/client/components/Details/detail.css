@@ -2,3 +2,12 @@
     padding: 0 !important;
     outline: none;
 }
+
+.vertical-margin {
+    margin-top: 1% !important;
+    margin-bottom: 1% !important;
+}
+
+.tree-padding-left{
+    padding-left: 3% !important;
+}

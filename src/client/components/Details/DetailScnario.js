@@ -86,7 +86,10 @@ class DetailScnario extends Component {
 
     handleRemove(id){
         this.setState({
+            activeTab: this.state.activeTab,
             scnarioes: this.state.scnarioes.filter(scnario => scnario.id !== id),
+            modal: this.state.modal,
+            newScnario: this.state.newScnario
         });
     }
 
@@ -170,10 +173,10 @@ class DetailScnario extends Component {
                                 {scnario_list}
                             </Row>
                             <Row>
-                            <Col>
-                            <Button color="warning" size="lg" block onClick={this.toggle}>새 시나리오 만들기</Button>
-                            </Col>
-                        </Row>
+                                <Col>
+                                    <Button color="warning" size="lg" block onClick={this.toggle}>새 시나리오 만들기</Button>
+                                </Col>
+                            </Row>
                         </Container>
                         <Modal isOpen={modal} toggle={this.toggle} className={this.props.className}>
                             <ModalHeader toggle={this.toggle} close={closeBtn}>새 시나리오</ModalHeader>

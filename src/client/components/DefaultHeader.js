@@ -3,9 +3,9 @@ import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLin
 import PropTypes from 'prop-types';
 
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../assets/img/ldcc_logo.png'
-import sygnet from '../../assets/img/lotte_logo.png'
-import avatar9 from '../../assets/img/avatars/9.jpg';
+import logo from '../assets/img/ldcc_logo.png'
+import sygnet from '../assets/img/lotte_logo.png'
+import avatar9 from '../assets/img/avatars/9.jpg';
 
 const propTypes = {
   children: PropTypes.node,
@@ -23,11 +23,9 @@ class DefaultHeader extends Component {
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
-          full={{ src: logo, width: 115, height: 29, alt: 'LDCC Gateway' }}
+          full={{ src: logo, width: 115, height: 29, alt: 'LDCC Gateway'}}
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'LDCC' }}
         />
-        <AppSidebarToggler className="d-md-down-none" display="lg" />
-
         <Nav className="ml-auto" navbar>
           {/* <NavItem className="d-md-down-none">
             <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
@@ -59,7 +57,7 @@ class DefaultHeader extends Component {
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>
-        <AppAsideToggler className="d-md-down-none" />
+        {this.props.page === "main"? null : <AppAsideToggler className="d-md-down-none" />}
         {/*<AppAsideToggler className="d-lg-none" mobile />*/}
       </React.Fragment>
     );

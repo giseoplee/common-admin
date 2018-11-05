@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
 import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Button } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
+import {
+  AppAside,
+  AppBreadcrumb,
+  AppFooter,
+  AppHeader,
+  AppSidebar,
+  AppSidebarFooter,
+  AppSidebarForm,
+  AppSidebarHeader,
+  AppSidebarMinimizer,
+  AppSidebarNav,
+} from '@coreui/react';
 
 class Board extends Component {
 
-  componentDidMount() {
+  /*componentDidMount() {
     fetch('/api/blame/list')
       .then(res => res.json())
       .then(user => {
         console.log(user);
         // this.setState({ username: user.username })
       });
-  }
+  }*/
 
   render() {
     const lastTdWidth = {

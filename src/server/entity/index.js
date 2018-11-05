@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 const sequelizeInstance = require('./instance');
 
-const version = sequelizeInstance.define('version', {
+/*const version = sequelizeInstance.define('version', {
     version: { type: sequelize.CHAR(20), allowNull: false },
 },
 {
@@ -96,14 +96,14 @@ const blame = sequelizeInstance.define('blame', {
 {
     charset: 'utf8',
     collate: 'utf8_unicode_ci'
-});
+});*/
 
 module.exports = {
-  user,
+  /*user,
   diary,
   notification,
   blame,
   version,
   push,
-  manager
+  manager*/
 };

@@ -9871,3 +9871,11 @@ body {
 
 html body .app.flex-row.align-items-center {
   height: 100vh; }
+
+.display-inline {
+  display: inline-block !important;
+}
+
+.display-block{
+  display: block !important;
+}

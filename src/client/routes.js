@@ -1,15 +1,17 @@
 import React from 'react';
 import Loadable from 'react-loadable'
 
-import DefaultLayout from './containers/DefaultLayout';
-
-
 function Loading() {
   return <div>Loading...</div>;
 }
 
-const ApiRoutesList = Loadable({
-  loader: () => import('./views/ApiRoutes/Board'),
+const DetailScnario = Loadable({
+  loader: () => import('./components/Details/DetailScnario'),
+  loading: Loading,
+});
+
+const DetailBlockList = Loadable({
+  loader: () => import('./components/Details/DetailBlockList'),
   loading: Loading,
 });
 
@@ -19,9 +21,9 @@ const BlameList = Loadable({
 });
 
 const routes = [
-  { path: '/', exact: true, name: 'Home', component: DefaultLayout },
-  { path: '/apiroutes/list', name: 'Api Routes', component: ApiRoutesList },
-  { path: '/blame/list', name: 'Common List Component', component: BlameList }
+  { path: '/bot/:bot_name/scnario',  exact: true, name: '봇 시나리오', component: DetailScnario },
+  { path: '/bot/:bot_name/scnario/:scenario_name?',  name: '봇 블록', component: DetailBlockList },
+  { path: '/bot/blame/list', name: 'Common List Component', component: BlameList }
 ];
 
 export default routes;

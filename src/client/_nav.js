@@ -1,6 +1,11 @@
 export default {
     items: [
       {
+        name: '봇 목록',
+        url: '/home',
+        icon: 'icon-arrow-left-circle',
+      },
+      {
         title: true,
         name: 'Menus',
         wrapper: {
@@ -9,19 +14,10 @@ export default {
         },
       },
       {
-        name: 'API Routes',
-        url: '/apiroutes/list',
+        name: '시나리오',
+        url: '/bot/:bot_name/scnario',
         icon: 'icon-pie-chart',
       },
-      // {
-      //   name: 'Dashboard',
-      //   url: '/dashboard',
-      //   icon: 'icon-speedometer',
-      //   // badge: {
-      //   //   variant: 'info',
-      //   //   text: 'NEW',
-      //   // },
-      // },
       {
         name: 'Groups',
         url: '/table',

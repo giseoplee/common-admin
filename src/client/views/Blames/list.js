@@ -13,14 +13,14 @@ const TableHeader = (props) => {
 
 class Board extends Component {
 
-  componentDidMount() {
+  /*componentDidMount() {
     fetch('/api/blame/list')
       .then(res => res.json())
       .then(user => {
         console.log(user);
         // this.setState({ username: user.username })
       });
-  }
+  }*/
 
   render() {
     const lastTdWidth = { width: '150px' };

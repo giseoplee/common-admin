@@ -1,0 +1,13 @@
+.padding-none {
+    padding: 0 !important;
+}
+
+.transparent-a{
+    color: inherit !important;
+
+}
+
+.transparent-a:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+}

@@ -2059,6 +2059,7 @@ input[type="button"].btn-block {
     .collapsing {
       transition: none; } }
 
+      
 .dropup,
 .dropright,
 .dropdown,
@@ -9878,4 +9879,19 @@ html body .app.flex-row.align-items-center {
 
 .display-block{
   display: block !important;
+}
+
+.vertical-middle{
+  vertical-align: middle !important;
+}
+
+.background-white{
+  background: white !important;
+}
+
+.custom-center{
+  position: relative !important;
+  bottom: 50% !important;
+  left: 50% !important;
+  vertical-align: middle !important;
 }

@@ -1,5 +1,8 @@
 const Sequelize = require("sequelize");
 const config = require('../config');
+
+console.log(config.store.mysqlHost);
+
 const sequelize = new Sequelize(
   config.store.mysqlDatabase,
   config.store.mysqlUser,

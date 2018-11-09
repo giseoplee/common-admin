@@ -6,8 +6,13 @@ export default {
         icon: 'icon-arrow-left-circle',
       },
       {
+        name: '봇 설정',
+        url: '/setting',
+        icon: 'icon-settings',
+      },
+      {
         title: true,
-        name: 'Menus',
+        name: '메뉴',
         wrapper: {
           element: '',
           attributes: {},
@@ -15,20 +20,15 @@ export default {
       },
       {
         name: '시나리오',
-        url: '/bot/:bot_name/scnario',
-        icon: 'icon-pie-chart',
+        url: '/bot',
+        icon: 'icon-note',
       },
       {
-        name: 'Groups',
-        url: '/table',
-        icon: 'icon-puzzle',
-      },
-      {
-        name: 'Flow Chart',
-        url: '/flowchart/state',
-        icon: 'icon-calculator',
-      },
-      {
+        name: '도움말',
+        url: '/home',
+        icon: 'icon-question',
+      }
+      /*{
         name: 'Common',
         url: '/blame/list',
         icon: 'icon-calculator',
@@ -274,7 +274,7 @@ export default {
             icon: 'icon-star',
           },
         ],
-      }
+      }*/
     ],
   };
   

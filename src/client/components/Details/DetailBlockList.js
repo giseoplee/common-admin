@@ -30,19 +30,27 @@ class DetailBlockList extends Component {
         data = [{
             id: 0,
             parent: null,
-            name: 'block_1'
+            tree: 0,
+            name: 'block_1',
+            type: "custom"
         }, {
             id: 1,
             parent: null,
-            name: 'block_2'
+            tree: 0,
+            name: 'block_2',
+            type: "custom"
         }, {
             id: 2,
             parent: null,
-            name: 'block_3'
+            tree: 0,
+            name: 'block_3',
+            type: "custom"
         }, {
             id: 3,
             parent: null,
-            name: 'block_4'
+            tree: 0,
+            name: 'block_4',
+            type: "custom"
         }
         ];
 
@@ -61,22 +69,21 @@ class DetailBlockList extends Component {
         this.removeEvent = true;
     }
 
-    AddFollowIntent(id, name){
+    AddFollowIntent(id, name, tree){
         let newFollowIntent = {
             id: ++this.id,
             parent: id,
-            name: name+'-follow-up'
+            tree: ++tree,
+            name: name+'-follow-up',
+            type: "custom"
         };
 
         let parentIndex = this.state.blocks.findIndex(x => x.id === id);
 
-        console.log(parentIndex);
 
         let newBlocks = JSON.parse(JSON.stringify(this.state.blocks));
 
         newBlocks.splice(parentIndex+1, 0, newFollowIntent);
-
-        console.log(newBlocks);
 
         this.setState({
             blocks: newBlocks
@@ -109,16 +116,18 @@ class DetailBlockList extends Component {
     render () {
         const {blocks} = this.state;
 
+        let fragment = <Fragment>&nbsp;&nbsp;&nbsp;</Fragment>;
+
         const blockList = blocks.map(
             block => (
             <ListGroupItem key={block.id} tag="button" action onClick={() => {this.goBlock(block.id);}}>
                 <Row>
-                    <Col sm="6">
-                        {block.parent !== null? <Fragment>&nbsp;&nbsp;&nbsp;</Fragment>: <Fragment></Fragment>}
+                    <Col sm="6" className={block.parent !== null? "block_tree_"+block.tree:""}>
+                        {block.parent !== null? <Fragment>└&nbsp;</Fragment>:null}
                         {block.name}
                     </Col>
                     <Col sm="6" className="text-right">
-                        <Button color="link" onClick={() => {this.AddFollowIntent(block.id, block.name);}}><i className="icon-layers icons"></i>&nbsp;Add follow-up intent</Button>
+                        <Button color="link" onClick={() => {this.AddFollowIntent(block.id, block.name, block.tree);}}><i className="icon-layers icons"></i>&nbsp;Add follow-up intent</Button>
                         <Button color="ghost-success" onClick={() => {this.removeBlock(block.id);}}><i className="icon-trash icons"></i></Button>
                     </Col>
                 </Row>

@@ -27,7 +27,7 @@ const RoutesModule = (function (){
           next();
       });
 
-      // app.use('/auth', authCtrl);
+      app.use('/auth', authCtrl);
       // app.use('/diary', diaryCtrl);
       // app.use('/account', accountCtrl);
       // app.use('/file', fileCtrl);

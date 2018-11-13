@@ -284,7 +284,7 @@ class DetailScnario extends Component {
                                                 <Fragment><i className="icon-loop icons"></i>&nbsp;&nbsp;폴백 블록</Fragment>
                                             </Col>
                                             <Col sm="6" className="text-right">
-                                                <Button className="padding-none" color="link" onClick={()=>{this.goBlock(event, this.state.welcomeId);}}><i className="icon-link icons"></i>&nbsp;&nbsp;설정</Button>
+                                                <Button className="padding-none" color="link" onClick={()=>{this.goBlock(event, this.state.fallbackId);}}><i className="icon-link icons"></i>&nbsp;&nbsp;설정</Button>
                                                 &nbsp;&nbsp;
                                                 <AppSwitch size="sm" className={classnames('mx-1', 'vertical-middle')} variant={'pill'} color={'danger'} checked={this.state.fallbackState} onChange={() => {this.setOffSwitch(this.state.fallbackId);}}/>
                                             </Col>

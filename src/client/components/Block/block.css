@@ -10,4 +10,5 @@
 .transparent-a:hover {
     text-decoration: none !important;
     color: inherit !important;
+    cursor: pointer !important;
 }

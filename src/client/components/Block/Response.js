@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Alert, Container, Row, Col, Badge, Button, Card, CardHeader, CardTitle, CardText, CardBody, CardFooter, Label, Input, FormGroup, FormFeedback, Form, ListGroup, ListGroupItem, InputGroup, InputGroupText, InputGroupAddon, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Tooltip , Alert, Container, Row, Col, Badge, Button, Card, CardHeader, CardTitle, CardText, CardBody, CardFooter, Label, Input, FormGroup, FormFeedback, Form, ListGroup, ListGroupItem, InputGroup, InputGroupText, InputGroupAddon, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import {TextType} from './ReponseType';
 
@@ -144,7 +144,7 @@ class Response extends Component {
             <Row>
                 <Col sm="12" className="padding-none">
                     <Card body>
-                        <CardTitle>출력</CardTitle>
+                        <CardTitle>응답</CardTitle>
                         <CardText>
                             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                                 <DropdownToggle caret>

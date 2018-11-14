@@ -9,5 +9,3 @@ npm-debug.log
 yarn.lock
 package-lock.json
 src/server/config/env/*
-Dockerfile
-dockerizing.sh

@@ -5,7 +5,7 @@ const moment = require('moment-timezone');
 
 const config = require('../config');
 
-const RedisModule = (function () {
+/*(const RedisModule = (function () {
   const redis = new ioRedis(
   {
       port: config.redis.redisPort,
@@ -123,4 +123,4 @@ const RedisModule = (function () {
   }
 })();
 
-module.exports = RedisModule;
+module.exports = RedisModule;*/

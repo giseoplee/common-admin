@@ -12,7 +12,9 @@ const user = sequelizeInstance.define('user', {
     token: { type: sequelize.STRING(300), allowNull: true },
     loginFailCount: { type: sequelize.SMALLINT.UNSIGNED, defaultValue : 0 },
     passwordUpdatedAt: { type: sequelize.DATE, allowNull: true },
-    loginedAt: { type: sequelize.DATE, allowNull: true }
+    loginedAt: { type: sequelize.DATE, allowNull: true },
+    createdAt: { type: sequelize.DATE, allowNull: false },
+    updatedAt: { type: sequelize.DATE, allowNull: false }
 },
 {
     charset: 'utf8',
@@ -22,7 +24,9 @@ const user = sequelizeInstance.define('user', {
 const bot = sequelizeInstance.define('bot', {
     user_id: { type: sequelize.INTEGER(11), allowNull : true }, // false
     name: { type : sequelize.STRING(255), allowNull : true }, // false
-    description: { type : sequelize.STRING(300), allowNull : true } // false
+    description: { type : sequelize.STRING(300), allowNull : true }, // false
+    createdAt: { type: sequelize.DATE, allowNull: false },
+    updatedAt: { type: sequelize.DATE, allowNull: false }
 },
 {
     charset: 'utf8',

@@ -50,7 +50,7 @@ class DefaultFrame extends Component {
             },
             {
                 name: '시나리오',
-                url: '/bot/'+this.props.match.params.bot_name+'/scnario',
+                url: '/bot/'+this.props.match.params.bot_name+'/scenario',
                 icon: 'icon-note',
             },
             {
@@ -63,7 +63,6 @@ class DefaultFrame extends Component {
 
 
     render () {
-        console.log(this.props.match.params.bot_name);
 
         return (
             <div className="app">
@@ -88,7 +87,7 @@ class DefaultFrame extends Component {
                                 : (null);
                             },
                             )}
-                            <Redirect from="/bot/:bot_name" to="/bot/:bot_name/scnario"></Redirect>
+                            <Redirect from="/bot/:bot_name" to="/bot/:bot_name/scenario"></Redirect>
                         </Switch>
                         </Container>
                     </main>

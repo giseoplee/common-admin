@@ -21,12 +21,12 @@ class Login extends Component {
 
   componentDidMount() {
     // 세션 관리 부분
-    /*this.props.getStatusRequest().then(_ => {
+    this.props.getStatusRequest().then(_ => {
 
         if(this.props.valid){
             this.props.history.push('/home');
         }
-    });*/
+    });
   }
 
   handleKeyPress(e) {

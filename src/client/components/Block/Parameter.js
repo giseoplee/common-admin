@@ -9,22 +9,58 @@ class Parameter extends Component {
         super(props);
 
         this.state = {
-        tooltipOpen: false
+            tooltipOpen: false,
+            parameteres: []
         };
 
         this.tooltipToggle = this.tooltipToggle.bind(this);
     }
 
     componentDidMount(){
+        let data = [];
+
+        data = [{
+                id: "@49238423",
+                parent: null,
+                tree: 0,
+                name: '웰컴 블록',
+                type: "welcome",
+                parametertype: ["none", "text"]
+            }, {
+                id: 0,
+                parent: null,
+                tree: 0,
+                name: 'block_1',
+                type: "custom",
+                parametertype: ["text"]
+            }, {
+                id: 3,
+                parent: null,
+                tree: 0,
+                name: 'block_4',
+                type: "custom",
+                parametertype: ["text", "button"]
+            }
+        ];
+
         if(this.props.intent_name === "new"){
+            this.setState({
+                tooltipOpen: false,
+                parameteres: data
+            });
         }
         else{
+            this.setState({
+                tooltipOpen: false,
+                parameteres: [] // 흐름 내에서 현재 블록보다 이전 block id를 저장?
+            });
         }
     }
 
     tooltipToggle() {
         this.setState({
-          tooltipOpen: !this.state.tooltipOpen
+          tooltipOpen: !this.state.tooltipOpen,
+          parameteres: this.state.parameteres
         });
     }
 

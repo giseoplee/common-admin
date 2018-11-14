@@ -72,3 +72,14 @@
     font-weight: bold !important;
     border-bottom: 2px solid black !important;
 }
+
+.custom-link-btn{
+    font-size: 13px !important;
+}
+.custom-link-btn:hover{
+    text-decoration: none !important;
+}
+
+.color-white{
+    color: white !important;
+}

@@ -18,14 +18,17 @@ export function loginRequest (account, password) {
         .then(res => {
 
             if(res.data.code !== '9000' &&  res.data.data !== null){
-                dispatch(loginSuccess(account));
+                dispatch(loginSuccess(res.data.data.user.id));
             }
             else{
                 dispatch(loginFailure());
             }
             
         })
-        .catch(e => dispatch(loginFailure()));
+        .catch(e => {
+            console.log(e.message);
+            dispatch(loginFailure());
+        });
     };
 }
 

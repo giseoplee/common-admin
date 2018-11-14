@@ -4,6 +4,7 @@ import { Badge, Container, Button, Row, Col, Modal, ModalHeader, ModalBody, Moda
 import { withRouter } from 'react-router-dom';
 
 import { getStatusRequest } from '../../actions/AuthActions';
+import { getBotsRequest } from '../../actions/BotActions';
 
 import {
   AppAside,
@@ -29,7 +30,7 @@ import './DefaultLayout.css';
 
 class DefaultLayout extends Component {
 
-  id = 3;
+  id = 0;
 
   constructor(props){
     super(props);
@@ -59,42 +60,28 @@ class DefaultLayout extends Component {
 
   componentDidMount() {
     // 세션 관리 부분
-    /*this.props.getStatusRequest().then(_ => {
-
+    this.props.getStatusRequest().then(_ => {
+        
         if(!this.props.status.valid){
-            this.props.history.push('/login');
+            return this.props.history.push('/login');
         }
-    });*/
 
-    // DB에서 봇 리스트 가져오기
-    let data = [{
-      id: 0,
-      bot_name: 'bot_1',
-      scnario: 4,
-      desc: 'this is sample!'
-    }, {
-      id: 1,
-      bot_name: 'bot_2',
-      scnario: 4,
-      desc: 'this is sample!'
-    }, {
-      id: 2,
-      bot_name: 'bot_3',
-      scnario: 4,
-      desc: 'this is sample!'
-    }, {
-      id: 3,
-      bot_name: 'bot_4',
-      scnario: 4,
-      desc: 'this is sample!'
-    }];
+        this.props.getBotsRequest(this.props.status.currentUser.toString()).then(_ => {
 
-    this.setState({
-      bots: data,
-      bot_number: data.length,
-      modal: this.state.modal,
-      newbotname:this.state.newbotname,
-      newbotdesc: this.state.newbotdesc
+          if(this.props.bots.status !== 'FAILURE'){
+            let data = JSON.parse(this.props.bots.bots);
+    
+            this.setState({
+              bots: data,
+              bot_number: data.length,
+              modal: this.state.modal,
+              newbotname:this.state.newbotname,
+              newbotdesc: this.state.newbotdesc
+            });
+
+            this.id = data.length;
+          }
+        });
     });
   };
 
@@ -110,9 +97,10 @@ class DefaultLayout extends Component {
 
     let newbotlist = [...this.state.bots, {
       id: ++this.id,
-      bot_name: newbotname,
-      scnario: 0,
-      desc: newbotdesc
+      name: newbotname,
+      description: newbotdesc,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }];
 
     this.setState({
@@ -213,7 +201,8 @@ class DefaultLayout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      status: state.authentication.status
+      status: state.authentication.status,
+      bots: state.bot.bot_list
   };
 };
 
@@ -221,6 +210,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
       getStatusRequest: () => {
           return dispatch(getStatusRequest());
+      },
+      getBotsRequest: (id) => {
+        return dispatch(getBotsRequest(id));
       }
   };
 };

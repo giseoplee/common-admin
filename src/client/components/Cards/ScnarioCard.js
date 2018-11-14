@@ -23,7 +23,7 @@ class ScnarioCard extends Component {
     render(){
         const {thisscnario: {id, title, blocks}, bot_id} = this.props;
 
-        let scnarioUrl = "/bot/"+bot_id+"/scnario/"+{id}.id;
+        let scnarioUrl = "/bot/"+bot_id+"/scenario/"+{id}.id;
 
         return (
             <Col xs="3">
@@ -32,7 +32,7 @@ class ScnarioCard extends Component {
                         <Col xs="8" className="display-inline padding-none">{title}</Col>
                         <Col xs="4" className="display-inline text-right padding-none"><Button close onClick={this.handleRemove}/></Col>
                     </CardTitle>
-                    <CardText>{blocks}개의 블록</CardText>
+                    <CardText>{blocks.length}개의 블록</CardText>
                     <Button onClick={() => {this.onHref(scnarioUrl);}}>수정하기</Button>
                 </Card>
             </Col>

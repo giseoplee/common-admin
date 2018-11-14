@@ -39,7 +39,8 @@ module.exports = {
     open: true,
     hot: true,
     proxy: {
-      '/auth': 'http://localhost:9090'
+      '/auth': 'http://localhost:9090',
+      '/bots': 'http://localhost:9090'
     }
   },
   plugins: [

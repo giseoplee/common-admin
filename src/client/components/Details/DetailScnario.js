@@ -2,10 +2,14 @@ import React, { Component, Fragment } from 'react';
 import { Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormFeedback, TabContent, TabPane, Nav, NavItem, NavLink, ListGroup, ListGroupItem, Card, CardTitle } from 'reactstrap';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import classnames from 'classnames';
-import { AppSwitch } from '@coreui/react'
+import { AppSwitch } from '@coreui/react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import ScnarioCard from '../Cards/ScnarioCard';
 import './detail.css';
+
+import { getJsonRequest } from '../../actions/BotJsonActions';
 
 class DetailScnario extends Component {
 
@@ -33,7 +37,7 @@ class DetailScnario extends Component {
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
-    id = 3;
+    id = -1;
 
     componentDidMount(){
         // match.params.bot_name 으로 DB에서 관련 시나리오 가져오기
@@ -41,59 +45,39 @@ class DetailScnario extends Component {
         let data = [];
 
         if(!this.props.match.params.bot_name){
-            console.log('잘못된 접근!');
+            return this.props.history.push('/home');
         }
 
-        if(this.props.match.params.bot_name == '1'){
-            data = [{
-                id: 0,
-                title: '시나리오 #1',
-                blocks: 4
-            }, {
-                id: 1,
-                title: '시나리오 #2',
-                blocks: 0
-            }, {
-                id: 2,
-                title: '시나리오 #3',
-                blocks: 1
-            }, {
-                id: 3,
-                title: '시나리오 #4',
-                blocks: 2
-            }];
-        }
-        else{
-            data = [{
-                id: 0,
-                title: '시나리오 #11',
-                blocks: 4
-            }, {
-                id: 1,
-                title: '시나리오 #12',
-                blocks: 0
-            }, {
-                id: 2,
-                title: '시나리오 #13',
-                blocks: 1
-            }, {
-                id: 3,
-                title: '시나리오 #14',
-                blocks: 2
-            }];
-        }
+        this.props.getJsonRequest(this.props.match.params.bot_name).then(_ => {
 
-        // db에서 봇 아이디 가져온 후 연결된 웰컴, 폴백 블록 가져와야 한다!
+            if(this.props.scenario_list.status === 'SUCCESS'){
+                data = JSON.parse(this.props.scenario_list.scenarios);
+                
+                let scenarioArr = [];
 
-        this.setState({
-            activeTab: '1',
-            scnarioes: data,
-            modal: false,
-            newScnario: '',
-            welcomeId: '@49238423',
-            fallbackId: '@58027010',
-            welcomeState: true,
-            fallbackState: true
+                console.log(Object.values(data.scenarios));
+
+                this.id = Object.values(data.scenarios).length;
+
+                Object.values(data.scenarios).forEach((element, index) => {
+                    scenarioArr.push({
+                        id: "scenario_0"+(index+1),
+                        title: element.name,
+                        blocks: Object.values(element.list),
+                    });
+                });
+
+                this.setState({
+                    activeTab: '1',
+                    scnarioes: scenarioArr,
+                    modal: false,
+                    newScnario: '',
+                    welcomeId: this.props.match.params.bot_name+'_welcome',
+                    fallbackId: this.props.match.params.bot_name+'_fallback',
+                    welcomeState: true,
+                    fallbackState: true
+                });
+            }
         });
     }
 
@@ -159,11 +143,18 @@ class DetailScnario extends Component {
 
     handleWrite(){
         let newScnario = this.state.newScnario;
-    
+        ++this.id;
+
+        let prefix = "scenario_0";
+
+        if(this.id >= 10){
+            prefix = "scenario_"+(this.id/10);
+        }
+
         let newScnarioList = [...this.state.scnarioes, {
-            id: ++this.id,
+            id: prefix+(this.id % 10),
             title: newScnario,
-            blocks: 0
+            blocks: []
         }];
     
         this.setState({
@@ -233,7 +224,7 @@ class DetailScnario extends Component {
                     <TabPane tabId="1">
                         <Container fluid className="padding-none">
                             <Row>
-                                {scnario_list}
+                                {!scnario_list || scnario_list.length === 0? <Col className="text-center"><p>시나리오가 없습니다.</p></Col>:scnario_list}
                             </Row>
                             <Row>
                                 <Col>
@@ -327,4 +318,19 @@ class DetailScnario extends Component {
     }
 }
 
-export default DetailScnario;
+const mapStateToProps = (state) => {
+    return {
+        scenario_list: state.parsing.scenario_list
+    };
+  };
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+        getJsonRequest: (BotId) => {
+            return dispatch(getJsonRequest(BotId));
+        }
+    };
+  };
+
+//export default DetailScnario;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailScnario));

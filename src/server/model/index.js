@@ -3,11 +3,13 @@ const userModel = require('../model/userModel');
 const pushModel = require('../model/pushModel');
 const diaryModel = require('../model/diaryModel');
 const blameModel = require('../model/blameModel');
+const botModel = require('../model/botModel')
 
 module.exports = {
   authModel: authModel,
   userModel: userModel,
   pushModel: pushModel,
   diaryModel: diaryModel,
-  blameModel: blameModel
+  blameModel: blameModel,
+  botModel: botModel
 }

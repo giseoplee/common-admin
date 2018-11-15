@@ -48,7 +48,7 @@ router.post('/login', async (req, res) => {
 
             req.session.auth = {
                 isLoggedIn: true,
-                currentUser: result.account
+                currentUser: result.id
             };
 
             res.cookie('key', req.session.auth);
@@ -85,7 +85,7 @@ router.post('/getSession', async(req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-  req.session.destroy(err => { if(err) throw err; });
+  req.session.destroy(err => { if(err) throw err });
   return respondJson(res, resultCode.success, { session: "destroyed" })
 });
 

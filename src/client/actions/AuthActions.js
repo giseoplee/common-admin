@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {responseAction} from '../utils/common';
 
 import {
     AUTH_LOGIN,
@@ -15,16 +16,7 @@ export function loginRequest (account, password) {
         dispatch(login()); // login API start
 
         return axios.post('/auth/login', {account, password})
-        .then(res => {
-
-            if(res.data.code !== '9000' &&  res.data.data !== null){
-                dispatch(loginSuccess(account));
-            }
-            else{
-                dispatch(loginFailure());
-            }
-            
-        })
+        .then(res => responseAction(dispatch, res, loginSuccess, res.data.data.user.id, loginFailure))
         .catch(e => dispatch(loginFailure()));
     };
 }
@@ -53,7 +45,7 @@ export function getStatusRequest(){
         dispatch(getStatus());
 
         return axios.post('/auth/getSession')
-        .then(res => {res.data.data !== null? dispatch(getStatusSuccess(res.data.data.session)) : dispatch(getStatusFailure())})
+        .then(res => responseAction(dispatch, res, getStatusSuccess, res.data.data.session, getStatusFailure))
         .catch(e=>dispatch(getStatusFailure()));
     };
 }

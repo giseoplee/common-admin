@@ -1,6 +1,0 @@
-{
-    "name": "Board",
-    "version": "0.0.0",
-    "private": true,
-    "main": "./Board.js"
-}

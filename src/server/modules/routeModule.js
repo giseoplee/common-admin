@@ -3,7 +3,7 @@ const util = require('util');
 const moment = require('moment');
 const csrfProtection = new csurf({ cookie: true });
 const config = require('../config');
-const { authCtrl, fileCtrl, diaryCtrl, accountCtrl, blameCtrl } = require('../controller');
+const { authCtrl, botCtrl } = require('../controller');
 
 const RoutesModule = (function (){
   return {
@@ -28,7 +28,7 @@ const RoutesModule = (function (){
       });
 
       app.use('/auth', authCtrl);
-      // app.use('/diary', diaryCtrl);
+      app.use('/bots', botCtrl);
       // app.use('/account', accountCtrl);
       // app.use('/file', fileCtrl);
       //app.use('/api/blame', blameCtrl);

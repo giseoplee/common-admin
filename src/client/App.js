@@ -11,8 +11,9 @@ import 'flag-icon-css/css/flag-icon.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'simple-line-icons/css/simple-line-icons.css';
 import './scss/style.css';
+import './scss/custom.css';
 
-import { Login, Register, DefaultLayout, DefaultFrame } from './containers';
+import { Login, Home, Page } from './containers';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
@@ -22,10 +23,9 @@ class App extends Component {
         <HashRouter>
           <Provider store={store}>
           <Switch>
-            <Route exact path="/home" name="Home" component={DefaultLayout} />
+            <Route exact path="/" name="Home" component={Home} />
             <Route path="/login" name="Login Page" component={Login} />
-            <Route path="/register" name="Register Page" component={Register} />
-            <Route path="/bot/:bot_name" name="botframe" component={DefaultFrame}/>
+            <Route path="/bot/:bot_name" name="Page" component={Page}/>
           </Switch>
           </Provider>
         </HashRouter>

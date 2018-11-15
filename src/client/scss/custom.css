@@ -1,0 +1,108 @@
+.display-inline {
+    display: inline-block !important;
+}
+
+.display-block{
+    display: block !important;
+}
+
+.vertical-middle{
+    vertical-align: middle !important;
+}
+
+.background-white{
+        background: white !important;
+}
+
+.custom-center{
+    position: relative !important;
+    bottom: 50% !important;
+    left: 50% !important;
+    vertical-align: middle !important;
+}
+
+.padding-none {
+    padding: 0 !important;
+    outline: none;
+}
+
+.vertical-margin {
+    margin-top: 1% !important;
+    margin-bottom: 1% !important;
+}
+
+.tree-padding-left{
+    padding-left: 3% !important;
+}
+
+.block_tree_1 {
+    padding-left: 45px;
+}
+
+.block_tree_2 {
+    padding-left: 75px;
+}
+
+.block_tree_3 {
+    padding-left: 105px;
+}
+
+.block_tree_4 {
+    padding-left: 135px;
+}
+.block_tree_5 {
+    padding-left: 165px;
+}
+.block_tree_6 {
+    padding-left: 195px;
+}
+.block_tree_7 {
+    padding-left: 225px;
+}
+.block_tree_8 {
+    padding-left: 255px;
+}
+.block_tree_9 {
+    padding-left: 285px;
+}
+
+.custom-badge{
+    font-weight: normal !important;
+    font-size: 15px !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 8px 15px !important;
+    margin-right: 10px !important;
+    background-color:#e4e7ea !important;
+}
+
+.detail-tab-content{
+    border: none !important;
+    background: inherit !important;
+}
+
+.custom-navitem{
+    border: none !important;
+}
+
+.custom-navlink{
+    border: none !important;
+    background: inherit !important;
+}
+
+.nav-tabs .nav-link.active{
+    color: black !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid black !important;
+}
+
+.custom-link-btn{
+    font-size: 13px !important;
+}
+.custom-link-btn:hover{
+    text-decoration: none !important;
+}
+
+.color-white{
+    color: white !important;
+}

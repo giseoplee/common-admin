@@ -13,20 +13,23 @@ class Login extends Component {
           password: ""
       };
 
-      this.goRegister = this.goRegister.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleLogin = this.handleLogin.bind(this);
       this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentDidMount() {
-    // 세션 관리 부분
+    /* Session Validation Part (Now Commented) */
+    /*
+
     this.props.getStatusRequest().then(_ => {
 
         if(this.props.valid){
-            this.props.history.push('/home');
+            this.props.history.push('/');
         }
     });
+    
+    */
   }
 
   handleKeyPress(e) {
@@ -34,10 +37,6 @@ class Login extends Component {
       e.preventDefault();
       this.handleLogin();
     }
-  }
-
-  goRegister(){
-    this.props.history.push('/register');
   }
 
   handleChange(e) {
@@ -49,15 +48,13 @@ class Login extends Component {
   }
 
   handleLogin() {
-      console.log(this.state.account);
+
       return this.props.loginRequest(this.state.account, this.state.password).then(
           () => {
 
               if(this.props.status === "SUCCESS"){
-                  
-                  console.log(document.cookie);
 
-                  this.props.history.push('/home');
+                  this.props.history.push('/');
                   return true;
               }
               else{
@@ -113,7 +110,7 @@ class Login extends Component {
                       <h2>Sign up</h2>
                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua.</p>
-                      <Button color="primary" className="mt-3" active onClick={() => {this.goRegister();}}>Register Now!</Button>
+                      <Button color="primary" className="mt-3" active>Register Now!</Button>
                     </div>
                   </CardBody>
                 </Card>

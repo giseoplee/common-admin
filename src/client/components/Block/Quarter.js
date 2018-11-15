@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { PaginationLink, PaginationItem, Pagination, Table, Container, Row, Col, Badge, Button, Card, CardHeader, CardTitle, CardSubtitle, CardText, CardBody, CardFooter, Label, Input, FormGroup, FormFeedback, Form, ListGroup, ListGroupItem, InputGroup, InputGroupText, InputGroupAddon, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import './block.css';
+import './Block.css';
 
 class Quarter extends Component {
     constructor(props){

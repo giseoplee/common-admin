@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {responseAction} from '../utils/common';
 
 import {
     BOT_GET_LIST,
@@ -20,16 +21,7 @@ export function getBotsRequest (id) {
         dispatch(getBots()); // getBots API start
 
         return axios.post('/bots/getbot', {id})
-        .then(res => {
-
-            if(res.data.code !== '9000' &&  res.data.data !== null){
-                dispatch(getBotSuccess(res.data.data.bot_list));
-            }
-            else{
-                dispatch(getBotFailure());
-            }
-            
-        })
+        .then(res => responseAction(dispatch, res, getBotSuccess, res.data.data.bot_list, getBotFailure))
         .catch(e => dispatch(getBotFailure()));
     };
 }

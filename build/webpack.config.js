@@ -42,8 +42,8 @@ module.exports = {
     open: true,
     hot: true,
     proxy: {
-      '/auth': 'http://localhost:9090',
-      '/bot': 'http://localhost:9090'
+      // '/api': 'http://localhost:9090',
+      '/api': 'http://localhost:9090'
     }
   },
   devtool: 'inline-source-map',

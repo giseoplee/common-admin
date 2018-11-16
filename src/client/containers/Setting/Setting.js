@@ -12,8 +12,6 @@ class Setting extends Component {
             botDescription: '',
             botUrl: ''
         }
-
-        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount(){
@@ -23,29 +21,12 @@ class Setting extends Component {
     componentWillReceiveProps(nextProps) {
         log('nextProps > ', nextProps.botInformation);
         const { botInformation } = nextProps;
-        
         this.props.botInformation !== nextProps.botInformation
         ? this.setState({
             botName: botInformation.data.name,
             botDescription: botInformation.data.description,
             botUrl: botInformation.data.token
         }) : undefined
-    }
-
-    handleChange(){
-        let nextState = {};
-    
-        nextState[e.target.name] = e.target.value;
-    
-        this.setState(nextState);
-    }
-
-    handleChange(){
-        let nextState = {};
-    
-        nextState[e.target.name] = e.target.value;
-    
-        this.setState(nextState);
     }
 
     render(){

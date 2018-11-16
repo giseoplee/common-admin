@@ -11,14 +11,12 @@ import { getJsonRequest } from '../../actions/BotJsonActions';
 
 class Scenario extends Component {
 
-    
-
     constructor(props){
         super(props);
 
         this.state = {
             activeTab: '1',
-            scenarios: [],
+            scenarioes: [],
             modal: false, 
             newScenario: '',
             welcomeId: '',
@@ -39,29 +37,27 @@ class Scenario extends Component {
 
     id = -1;
 
-    botId = this.props.match.params.bot_name;
-
     componentDidMount(){
         // match.params.bot_name 으로 DB에서 관련 시나리오 가져오기
 
         let data = [];
 
-        if(!this.botId){
-            return this.props.history.push('/');
+        if(!this.props.match.params.bot_name){
+            return this.props.history.push('/home');
         }
 
-        this.props.getJsonRequest(this.botId).then(_ => {
+        this.props.getJsonRequest(this.props.match.params.bot_name).then(_ => {
 
-            if(this.props.jsonScenarioList.status === 'SUCCESS'){
-                data = JSON.parse(this.props.jsonScenarioList.scenarios);
+            if(this.props.scenario_list.status === 'SUCCESS'){
+                data = JSON.parse(this.props.scenario_list.scenarios); // JSON 내 시나리오 파싱
                 
-                let scenarioArray = [];
+                let scenarioArr = [];
 
                 this.id = Object.values(data.scenarios).length;
 
-                Object.values(data.scenarios).forEach((element, index) => { 
-                    scenarioArray.push({
-                        id: `scenario_${ (index+1) < 10 ? `0${index+1}` : `${index+1}` }`,
+                Object.values(data.scenarios).forEach((element, index) => { // 각 시나리오의 이름, 타이틀, 블록 목록을 state에 저장
+                    scenarioArr.push({
+                        id: "scenario_0"+(index+1),
                         title: element.name,
                         blocks: Object.values(element.list),
                     });
@@ -69,11 +65,11 @@ class Scenario extends Component {
 
                 this.setState({
                     activeTab: '1',
-                    scenarios: scenarioArray,
+                    scenarioes: scenarioArr,
                     modal: false,
                     newScenario: '',
-                    welcomeId: `${this.botId}_welcome`,
-                    fallbackId: `${this.botId}_fallback`,
+                    welcomeId: this.props.match.params.bot_name+'_welcome',
+                    fallbackId: this.props.match.params.bot_name+'_fallback',
                     welcomeState: true,
                     fallbackState: true
                 });
@@ -85,7 +81,7 @@ class Scenario extends Component {
         this.state.welcomeId === id? 
             this.setState({
                 activeTab: this.state.activeTab,
-                scenarios: this.state.scenarios,
+                scenarioes: this.state.scenarioes,
                 modal: this.state.modal,
                 newScenario: this.state.newScnario,
                 welcomeId: this.state.welcomeId,
@@ -95,7 +91,7 @@ class Scenario extends Component {
             }) 
             : this.setState({
                 activeTab: this.state.activeTab,
-                scenarios: this.state.scenarios,
+                scenarioes: this.state.scenarioes,
                 modal: this.state.modal,
                 newScenario: this.state.newScenario,
                 welcomeId: this.state.welcomeId,
@@ -108,7 +104,7 @@ class Scenario extends Component {
     handleRemove(id){
         this.setState({
             activeTab: this.state.activeTab,
-            scenarios: this.state.scenarios.filter(scenario => scenario.id !== id),
+            scenarioes: this.state.scenarioes.filter(scenario => scenario.id !== id),
             modal: this.state.modal,
             newScenario: this.state.newScenario,
             welcomeId: this.state.welcomeId,
@@ -121,7 +117,7 @@ class Scenario extends Component {
     toggle() {
         this.setState({
             activeTab: this.state.activeTab,
-            scenarios: this.state.scenarios,
+            scenarioes: this.state.scenarioes,
             modal: !this.state.modal,
             newScenario: this.state.newScenario,
             welcomeId: this.state.welcomeId,
@@ -134,10 +130,10 @@ class Scenario extends Component {
     tabToggle(tab) {
         if (this.state.activeTab !== tab) {
             const {activeTab, ...rest} = this.state;
-            this.setState({
-                activeTab: tab,
-                ...rest
-            });
+          this.setState({
+            activeTab: tab,
+            ...rest
+          });
         }
     }
 
@@ -145,15 +141,21 @@ class Scenario extends Component {
         let newScenario = this.state.newScenario;
         ++this.id;
 
-        let newScenarioList = [...this.state.scenarios, {
-            id: `scenario_${ this.id < 10 ? `0${this.id}` : `${this.id}` }`,
+        let prefix = "scenario_0";
+
+        if(this.id >= 10){
+            prefix = "scenario_"+(this.id/10);
+        }
+
+        let newScenarioList = [...this.state.scenarioes, {
+            id: prefix+(this.id % 10),
             title: newScenario,
             blocks: []
         }];
     
         this.setState({
             activeTab: this.state.activeTab,
-            scenarios: newScenarioList,
+            scenarioes: newScenarioList,
             modal: false,
             newScenario: '',
             welcomeId: this.state.welcomeId,
@@ -180,66 +182,66 @@ class Scenario extends Component {
 
     goBlock(e, id) {
         if (e.type === 'click' && e.clientX !== 0 && e.clientY !== 0) {
-            const url = `/bot/${this.botId}/intent/${id}`;
+            const url = '/bot/'+this.props.match.params.bot_name+'/intent/'+id;
             return this.props.history.push(url);
         }
     }
 
     render (){
-        const { scenarios, modal, newScenario, activeTab } = this.state;
+        const {scenarioes, modal, newScenario, activeTab} = this.state;
 
-        const scenarioList = scenarios.map(
-            scenario => (<ScenarioCard key={ scenario.id } thisScenario={ scenario } onRemove={ this.handleRemove } botId={ this.botId } />)
+        const scenario_list = scenarioes.map(
+            scenario => (<ScenarioCard key={scenario.id} thisScenario={scenario} onRemove={this.handleRemove} botId={this.props.match.params.bot_name} />)
         );
 
-        const closeBtn = <button className="close" onClick={ this.toggle }>&times;</button>;
+        const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>;
 
         return (
             <div>
                 <Nav tabs className="custom-navitem">
                     <NavItem className="custom-navitem">
                         <NavLink
-                        className={ classnames({ active: activeTab === '1' }, 'custom-navlink') }
-                        onClick={ () => this.tabToggle('1') }
+                        className={classnames({ active: activeTab === '1' }, 'custom-navlink')}
+                        onClick={() => { this.tabToggle('1'); }}
                         >
                         목록
                         </NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink
-                        className={ classnames({ active: activeTab === '2' }, 'custom-navlink') }
-                        onClick={ () => this.tabToggle('2') }
+                        className={classnames({ active: activeTab === '2' }, 'custom-navlink')}
+                        onClick={() => { this.tabToggle('2'); }}
                         >
                         설정
                         </NavLink>
                     </NavItem>
                 </Nav>
-                <TabContent activeTab={ activeTab } className="detail-tab-content">
+                <TabContent activeTab={activeTab} className="detail-tab-content">
                     <TabPane tabId="1">
                         <Container fluid className="padding-none">
                             <Row>
-                                { !scenarioList || scenarioList.length === 0? <Col className="text-center"><p>시나리오가 없습니다.</p></Col> : scenarioList }
+                                {!scenario_list || scenario_list.length === 0? <Col className="text-center"><p>시나리오가 없습니다.</p></Col>:scenario_list}
                             </Row>
                             <Row>
                                 <Col>
-                                    <Button color="warning" size="lg" block onClick={ this.toggle }>새 시나리오 만들기</Button>
+                                    <Button color="warning" size="lg" block onClick={this.toggle}>새 시나리오 만들기</Button>
                                 </Col>
                             </Row>
                         </Container>
-                        <Modal isOpen={ modal } toggle={ this.toggle } className={ this.props.className }>
-                            <ModalHeader toggle={ this.toggle } close={ closeBtn }>새 시나리오</ModalHeader>
+                        <Modal isOpen={modal} toggle={this.toggle} className={this.props.className}>
+                            <ModalHeader toggle={this.toggle} close={closeBtn}>새 시나리오</ModalHeader>
                             <ModalBody>
                             <Form>
                                 <FormGroup>
                                 <Label for="scenario-title">시나리오 제목</Label>
-                                <Input type="text" name="newScenario" id="scenario-title" value={ newScenario } invalid onChange={ this.handleChange } onKeyPress={ this.handleKeyPress }/>
+                                <Input type="text" name="newScenario" id="scenario-title" value={newScenario} invalid onChange={this.handleChange} onKeyPress={this.handleKeyPress}/>
                                 <FormFeedback invalid>시나리오명을 입력하세요.</FormFeedback>
                                 </FormGroup>
                             </Form>
                             </ModalBody>
                             <ModalFooter>
-                            <Button color="primary" onClick={ this.handleWrite }>생성</Button>{' '}
-                            <Button color="secondary" onClick={ this.toggle }>취소</Button>
+                            <Button color="primary" onClick={this.handleWrite}>생성</Button>{' '}
+                            <Button color="secondary" onClick={this.toggle}>취소</Button>
                             </ModalFooter>
                         </Modal>
                     </TabPane>
@@ -250,26 +252,28 @@ class Scenario extends Component {
                                 <CardTitle>기본 블록</CardTitle>
                                 <ListGroup>
                                     <ListGroupItem>
+                                        {/*onClick={()=>{this.goBlock(event, this.state.welcomeId);}}*/}
                                         <Row>
                                             <Col sm="6">
                                                 <Fragment><i className="icon-badge icons"></i>&nbsp;&nbsp;웰컴 블록</Fragment>
                                             </Col>
                                             <Col sm="6" className="text-right">
-                                                <Button className="padding-none" color="link" onClick={ ()=> this.goBlock(event, this.state.welcomeId) }><i className="icon-link icons"></i>&nbsp;&nbsp;설정</Button>
+                                                <Button className="padding-none" color="link" onClick={()=>{this.goBlock(event, this.state.welcomeId);}}><i className="icon-link icons"></i>&nbsp;&nbsp;설정</Button>
                                                 &nbsp;&nbsp;
-                                                <AppSwitch size="sm" className={ classnames('mx-1', 'vertical-middle') } variant={ 'pill' } color={ 'danger' } checked={ this.state.welcomeState } onChange={ () => this.setOffSwitch(this.state.welcomeId) }/>
+                                                <AppSwitch size="sm" className={classnames('mx-1', 'vertical-middle')} variant={'pill'} color={'danger'} checked={this.state.welcomeState} onChange={() => {this.setOffSwitch(this.state.welcomeId);}}/>
                                             </Col>
                                         </Row>
                                     </ListGroupItem>
                                     <ListGroupItem>
+                                        {/*onClick={()=>{this.goBlock(event, this.state.fallbackId);}}*/}
                                         <Row>
                                             <Col sm="6">
                                                 <Fragment><i className="icon-loop icons"></i>&nbsp;&nbsp;폴백 블록</Fragment>
                                             </Col>
                                             <Col sm="6" className="text-right">
-                                                <Button className="padding-none" color="link" onClick={ ()=> this.goBlock(event, this.state.fallbackId) }><i className="icon-link icons"></i>&nbsp;&nbsp;설정</Button>
+                                                <Button className="padding-none" color="link" onClick={()=>{this.goBlock(event, this.state.fallbackId);}}><i className="icon-link icons"></i>&nbsp;&nbsp;설정</Button>
                                                 &nbsp;&nbsp;
-                                                <AppSwitch size="sm" className={ classnames('mx-1', 'vertical-middle') } variant={ 'pill' } color={ 'danger' } checked={ this.state.fallbackState } onChange={ () => this.setOffSwitch(this.state.fallbackId) }/>
+                                                <AppSwitch size="sm" className={classnames('mx-1', 'vertical-middle')} variant={'pill'} color={'danger'} checked={this.state.fallbackState} onChange={() => {this.setOffSwitch(this.state.fallbackId);}}/>
                                             </Col>
                                         </Row>
                                     </ListGroupItem>
@@ -312,7 +316,7 @@ class Scenario extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        jsonScenarioList: state.parsing.jsonScenarioList
+        scenario_list: state.parsing.scenario_list
     };
 };
   

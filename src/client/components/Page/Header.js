@@ -9,7 +9,7 @@ import logo from '../../assets/img/ldcc_logo.png'
 import sygnet from '../../assets/img/lotte_logo.png'
 import avatar9 from '../../assets/img/avatars/User-Circle-512.png';
 
-import { logoutRequest } from '../../actions/auth/AuthActions';
+import { logoutRequest } from '../../actions/AuthActions';
 
 const propTypes = {
   children: PropTypes.node,

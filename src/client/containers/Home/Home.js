@@ -3,14 +3,23 @@ import { connect } from 'react-redux';
 import { Badge, Container, Button, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 
-import { getStatusRequest } from '../../actions/auth/AuthActions';
+import { getStatusRequest } from '../../actions/AuthActions';
 import { getBotsRequest } from '../../actions/BotActions';
 
 import {
   AppAside,
-  AppHeader
+  AppBreadcrumb,
+  AppFooter,
+  AppHeader,
+  AppSidebar,
+  AppSidebarFooter,
+  AppSidebarForm,
+  AppSidebarHeader,
+  AppSidebarMinimizer,
+  AppSidebarNav,
 } from '@coreui/react';
-
+// routes config
+import routes from '../../routes';
 import { Aside, Header } from '../../components/Page';
 import CardComponent from '../../components/Card/CardComponent';
 
@@ -114,7 +123,7 @@ class Home extends Component {
     let newBotName = this.state.newBotName;
     let newBotDesc = this.state.newBotDesc;
 
-    let newBotList = [...this.state.bots, {
+    let newbotlist = [...this.state.bots, {
       id: ++this.id,
       name: newBotName,
       description: newBotDesc,
@@ -162,11 +171,11 @@ class Home extends Component {
   render() {
     const {bots, botNumber, modal, newBotName, newBotDesc} = this.state;
 
-    const botList = bots.map(
-      bot => (<CardComponent key={ bot.id } thisBot={ bot } onRemove={ this.handleRemove } />)
+    const bot_list = bots.map(
+      bot => (<CardComponent key={bot.id} thisbot={bot} onRemove={this.handleRemove} />)
     );
 
-    const closeBtn = <button className="close" onClick={ this.toggle }>&times;</button>;
+    const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>;
 
     return (
       <div className="app">
@@ -182,11 +191,11 @@ class Home extends Component {
                 </Col>
               </Row>
               <Row>
-                { botList }
+                {bot_list}
               </Row>
               <Row>
                 <Col>
-                  <Button color="warning" size="lg" block onClick={ this.toggle }>봇 생성</Button>
+                  <Button color="warning" size="lg" block onClick={this.toggle}>봇 생성</Button>
                 </Col>
               </Row>
             </Container>
@@ -195,8 +204,8 @@ class Home extends Component {
             <Aside />
           </AppAside>
         </div>
-        <Modal isOpen={ modal } toggle={ this.toggle } className={ this.props.className }>
-          <ModalHeader toggle={ this.toggle } close={ closeBtn }>봇 생성</ModalHeader>
+        <Modal isOpen={modal} toggle={this.toggle} className={this.props.className}>
+          <ModalHeader toggle={this.toggle} close={closeBtn}>봇 생성</ModalHeader>
           <ModalBody>
             <Form>
               <FormGroup>
@@ -209,8 +218,8 @@ class Home extends Component {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={ this.handleWrite }>생성</Button>{' '}
-            <Button color="secondary" onClick={ this.toggle }>취소</Button>
+            <Button color="primary" onClick={this.handleWrite}>생성</Button>{' '}
+            <Button color="secondary" onClick={this.toggle}>취소</Button>
           </ModalFooter>
         </Modal>
       </div>
@@ -221,7 +230,7 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
       status: state.authentication.status,
-      bots: state.bot.jsonBotList
+      bots: state.bot.bot_list
   };
 };
 

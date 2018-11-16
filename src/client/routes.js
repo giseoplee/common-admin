@@ -6,6 +6,7 @@ import './scss/custom.css';
 
 function Loading() {
   return (
+    /*<div>Loading...</div>*/
     <Loader type="Rings" color="#dc3545" height="100"	width="100" className="custom-center"/>
   );
 }

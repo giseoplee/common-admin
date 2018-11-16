@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Badge, Container, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import  {Link} from 'react-router-dom';
 import routes from '../../routes';
 
 import {
   AppAside,
+  AppBreadcrumb,
+  AppFooter,
   AppHeader,
   AppSidebar,
   AppSidebarFooter,
   AppSidebarForm,
   AppSidebarHeader,
   AppSidebarMinimizer,
-  AppSidebarNav
+  AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
 //import navigation from '../../_nav';
 // routes config
 import { Aside, Header } from '../../components/Page';
 
-class Page extends Component {
-    
-
+class DefaultFrame extends Component {
     constructor(props){
         super(props);
     }
-
-    botId = this.props.match.params.bot_name;
 
     navigation = {
         items: [
@@ -36,7 +35,7 @@ class Page extends Component {
             },
             {
                 name: '봇 설정',
-                url: `/bot/${this.botId}/setting`,
+                url: '/bot/'+this.props.match.params.bot_name+'/setting',
                 icon: 'icon-settings',
             },
             {
@@ -48,13 +47,13 @@ class Page extends Component {
                 },
             },
             {
-                name: '시나리오', 
-                url: `/bot/${this.botId}/scenario`,
+                name: '시나리오',
+                url: '/bot/'+this.props.match.params.bot_name+'/scenario',
                 icon: 'icon-note',
             },
             {
                 name: '도움말',
-                url: '/',
+                url: '/home',
                 icon: 'icon-question',
             }
         ]
@@ -72,20 +71,20 @@ class Page extends Component {
                     <AppSidebar fixed display="lg">
                         <AppSidebarHeader />
                         <AppSidebarForm />
-                        <AppSidebarNav navConfig={ this.navigation } { ...this.props } />
+                        <AppSidebarNav navConfig={this.navigation} {...this.props} />
                         <AppSidebarFooter />
                         <AppSidebarMinimizer />
                     </AppSidebar>
                     <main className="main">
                         <Container fluid>
                         <Switch>
-                            { routes.map((route, idx) => {
-                                return route.component ? (<Route key={ idx } path={ route.path } exact={ route.exact } name={ route.name } render={ props => (
-                                    <route.component { ...props } />
-                                ) } />)
+                            {routes.map((route, idx) => {
+                                return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
+                                    <route.component {...props} />
+                                )} />)
                                 : (null);
                             },
-                            ) }
+                            )}
                             <Redirect from="/bot/:bot_name" to="/bot/:bot_name/scenario"></Redirect>
                         </Switch>
                         </Container>
@@ -99,4 +98,4 @@ class Page extends Component {
     }
 }
 
-export default Page;
+export default DefaultFrame;

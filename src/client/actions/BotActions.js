@@ -17,11 +17,11 @@ import {
 } from '../constants/action-types';
 
 export function getBotsRequest (id) {
-    return async (dispatch) => {
-        dispatch(getBots());
+    return (dispatch) => {
+        dispatch(getBots()); // getBots API start
 
-        return await axios.post('/bots/getbot', {id})
-        .then(res => responseAction(dispatch, res.data.code, res.data.data, getBotSuccess, res.data.data.bot_list, getBotFailure))
+        return axios.post('/bots/getbot', {id})
+        .then(res => responseAction(dispatch, res, getBotSuccess, res.data.data.bot_list, getBotFailure))
         .catch(e => dispatch(getBotFailure()));
     };
 }

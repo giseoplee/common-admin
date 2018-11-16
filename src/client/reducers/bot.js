@@ -2,7 +2,7 @@ import * as types from '../constants/action-types';
 import update from 'react-addons-update';
 
 const initState = {
-    jsonBotList: {
+    bot_list: {
         status: 'INIT',
         bots: ''
     },
@@ -18,20 +18,20 @@ export default function bot (state, action) {
     switch(action.type){
         case types.BOT_GET_LIST:
             return update(state, {
-                jsonBotList: {
+                botList: {
                     status: {$set: 'WAITING'}
                 }
             });
         case types.BOT_GET_LIST_SUCCESS:
             return update(state, {
-                jsonBotList: {
+                botList: {
                     status: {$set: 'SUCCESS'},
                     bots: {$set: JSON.stringify(action.bots)}
                 }
             });
         case types.BOT_GET_LIST_FAILURE:
             return update(state, {
-                jsonBotList: {
+                botList: {
                     status: {$set: 'FAILURE'}
                 }
             });

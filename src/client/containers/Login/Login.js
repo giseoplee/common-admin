@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { connect } from 'react-redux';
-import { loginRequest, getStatusRequest } from '../../actions/AuthActions';
+import { loginRequest, getStatusRequest } from '../../actions/auth/AuthActions';
 import { withRouter } from 'react-router-dom';
 
 class Login extends Component {

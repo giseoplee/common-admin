@@ -40,6 +40,14 @@ class Setting extends Component {
         this.setState(nextState);
     }
 
+    handleChange(){
+        let nextState = {};
+    
+        nextState[e.target.name] = e.target.value;
+    
+        this.setState(nextState);
+    }
+
     render(){
         const { botName, botDescription, botUrl } = this.state;
         return(

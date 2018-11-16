@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Badge, Container, Button, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 
-import { getStatusRequest } from '../../actions/AuthActions';
+import { getStatusRequest } from '../../actions/auth/AuthActions';
 import { getBotsRequest } from '../../actions/BotActions';
 
 import {

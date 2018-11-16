@@ -16,7 +16,6 @@ const RoutesModule = (function (){
       }
 
       app.use((req, res, next) => {
-
           res.header('Access-Control-Allow-Origin', config.server.accept_domain);
           res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
           console.log(util.format('[Logger]::[Route]::[Access URL %s]::[Access Ip %s]::[Access Time %s]',
@@ -28,10 +27,7 @@ const RoutesModule = (function (){
       });
 
       app.use('/auth', authCtrl);
-      app.use('/bots', botCtrl);
-      // app.use('/account', accountCtrl);
-      // app.use('/file', fileCtrl);
-      //app.use('/api/blame', blameCtrl);
+      app.use('/bot', botCtrl);
       console.log(util.format('[Logger]::[Route]::[Service]::[%s]::[Started]',
                                 moment().tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss')));
     }

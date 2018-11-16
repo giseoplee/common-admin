@@ -9,24 +9,27 @@ class Login extends Component {
       super(props);
 
       this.state = {
-          account: "",
-          password: ""
+          account: ``,
+          password: ``
       };
 
-      this.goRegister = this.goRegister.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleLogin = this.handleLogin.bind(this);
       this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentDidMount() {
-    // 세션 관리 부분
+    /* Session Validation Part (Now Commented) */
+    /*
+
     this.props.getStatusRequest().then(_ => {
 
         if(this.props.valid){
-            this.props.history.push('/home');
+            this.props.history.push('/');
         }
     });
+    
+    */
   }
 
   handleKeyPress(e) {
@@ -34,10 +37,6 @@ class Login extends Component {
       e.preventDefault();
       this.handleLogin();
     }
-  }
-
-  goRegister(){
-    this.props.history.push('/register');
   }
 
   handleChange(e) {
@@ -49,19 +48,17 @@ class Login extends Component {
   }
 
   handleLogin() {
-      console.log(this.state.account);
+
       return this.props.loginRequest(this.state.account, this.state.password).then(
           () => {
 
-              if(this.props.status === "SUCCESS"){
-                  
-                  console.log(document.cookie);
+              if(this.props.status === `SUCCESS`){
 
-                  this.props.history.push('/home');
+                  this.props.history.push(`/`);
                   return true;
               }
               else{
-                  alert('로그인 실패');
+                  alert(`로그인 실패`);
                   return false;
               }
           }
@@ -86,7 +83,7 @@ class Login extends Component {
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" name="account" placeholder="Account" autoComplete="username" value={this.state.account} onChange={this.handleChange} />
+                        <Input type="text" name="account" placeholder="Account" autoComplete="username" value={ this.state.account } onChange={ this.handleChange } />
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -94,11 +91,11 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" name="password" placeholder="Password" autoComplete="current-password" value={this.state.password} onChange={this.handleChange} onKeyPress={this.handleKeyPress}/>
+                        <Input type="password" name="password" placeholder="Password" autoComplete="current-password" value={ this.state.password } onChange={ this.handleChange } onKeyPress={ this.handleKeyPress }/>
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4" onClick={this.handleLogin}>Login</Button>
+                          <Button color="primary" className="px-4" onClick={ this.handleLogin }>Login</Button>
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Forgot password?</Button>
@@ -107,13 +104,13 @@ class Login extends Component {
                     </Form>
                   </CardBody>
                 </Card>
-                <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: 44 + '%' }}>
+                <Card className="text-white bg-primary py-5 d-md-down-none" style={ { width: `${44}%` } }>
                   <CardBody className="text-center">
                     <div>
                       <h2>Sign up</h2>
                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua.</p>
-                      <Button color="primary" className="mt-3" active onClick={() => {this.goRegister();}}>Register Now!</Button>
+                      <Button color="primary" className="mt-3" active>Register Now!</Button>
                     </div>
                   </CardBody>
                 </Card>

@@ -1,8 +1,8 @@
-import * as types from '../actions/ActionTypes';
+import * as types from '../constants/action-types';
 import update from 'react-addons-update';
 
 const initState = {
-    scenario_list: {
+    jsonScenarioList: {
         status: 'INIT',
         scenarios: ''
     }
@@ -16,20 +16,20 @@ export default function parsing (state, action) {
     switch(action.type){
         case types.JSON_GET:
             return update(state, {
-                scenario_list: {
+                jsonScenarioList: {
                     status: {$set: 'WAITING'}
                 }
             });
         case types.JSON_GET_SUCCESS:
             return update(state, {
-                scenario_list: {
+                jsonScenarioList: {
                     status: {$set: 'SUCCESS'},
                     scenarios: {$set: JSON.stringify(action.testJson)}
                 }
             });
         case types.JSON_GET_FAILURE:
             return update(state, {
-                scenario_list: {
+                jsonScenarioList: {
                     status: {$set: 'FAILURE'}
                 }
             });

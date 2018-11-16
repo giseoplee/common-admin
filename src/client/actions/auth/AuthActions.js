@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { responseAction } from '../utils/common';
+import { responseAction } from '../../utils/common';
 
 import {
     AUTH_LOGIN,
@@ -12,11 +12,11 @@ import {
 } from '../constants/action-types';
 
 export function loginRequest (account, password) {
-    return async (dispatch) => {
-        dispatch(login());
+    return (dispatch) => {
+        dispatch(login()); // login API start
 
-        return await axios.post('/auth/login', { account, password })
-        .then(res => responseAction(dispatch, res.data.code, res.data.data, loginSuccess, res.data.data.user.id, loginFailure))
+        return axios.post('/auth/login', {account, password})
+        .then(res => responseAction(dispatch, res, loginSuccess, res.data.data.user.id, loginFailure))
         .catch(e => dispatch(loginFailure()));
     };
 }
@@ -41,11 +41,11 @@ export function loginFailure () {
 }
 
 export function getStatusRequest(){
-    return async (dispatch) => {
+    return (dispatch) => {
         dispatch(getStatus());
 
-        return await axios.post('/auth/getSession')
-        .then(res => responseAction(dispatch, res.data.code, res.data.data, getStatusSuccess, res.data.data.session, getStatusFailure))
+        return axios.post('/auth/getSession')
+        .then(res => responseAction(dispatch, res, getStatusSuccess, res.data.data.session, getStatusFailure))
         .catch(e=>dispatch(getStatusFailure()));
     };
 }
@@ -70,8 +70,8 @@ export function getStatusFailure(){
 }
 
 export function logoutRequest() {
-    return async (dispatch) => {
-        return await axios.post('/auth/logout').then(res => dispatch(logout()));
+    return (dispatch) => {
+        return axios.post('/auth/logout').then(res => dispatch(logout()));
     };
 }
 

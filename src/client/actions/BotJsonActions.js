@@ -1,26 +1,18 @@
 import axios from 'axios';
+import { responseAction } from '../utils/common';
 
 import {
     JSON_GET,
     JSON_GET_SUCCESS,
     JSON_GET_FAILURE
-} from './ActionTypes';
+} from '../constants/action-types';
 
 export function getJsonRequest(BotId){
-    return (dispatch) => {
-        dispatch(getJson()); // getBots API start
+    return async (dispatch) => {
+        dispatch(getJson());
 
-        return axios.post('/bots/getJson', {BotId})
-        .then(res => {
-            console.log(res.data.data.data);
-            if(res.data.code !== '9000' &&  res.data.data !== null){
-                dispatch(getJsonSuccess(res.data.data.data));
-            }
-            else{
-                dispatch(getJsonFailure());
-            }
-            
-        })
+        return axios.post('/bot/getJson', {BotId})
+        .then(res => responseAction(dispatch, res, getJsonSuccess, res.data.data.data, getJsonFailure))
         .catch(e => dispatch(getJsonFailure()));
     };
 }

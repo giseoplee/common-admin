@@ -1,6 +1,9 @@
-import DefaultLayout from './DefaultLayout';
-import DefaultFrame from './DefaultFrame';
+import Home from './Home';
+import Page from './Page';
 import Login from './Login';
-import Register from './Register';
+import Scenario from './Scenario';
+import Setting from './Setting';
+import Block from './Block';
+import BlockInfo from './BlockInfo';
 
-export { DefaultLayout, DefaultFrame, Login, Register };
+export { Home, Page, Login, Scenario, Setting, Block, BlockInfo };

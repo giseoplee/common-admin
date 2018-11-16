@@ -25,8 +25,28 @@ router.use((req, res, next) => {
       //f => f(authRq[getUrl(req.originalUrl)]),
       result => result
       ? next()
-      : respondOnError(res, resultCode.incorrectParamForm, {desc: "incorrect parameter form"})
+      : respondOnError(res, resultCode.incorrectParamForm, { desc: "Incorrect Parameter F orm" })
     );
+});
+
+router.get('/detail', async (req, res) => {
+    try {
+        const { id } = req.query;
+        const options = {
+            where: {
+                id: id
+            }
+        }
+        return go(
+            options,
+            botModel.find,
+            data => data ?
+            respondJson(res, resultCode.success, data[0])
+            : respondOnError(res, resultCode.error, { desc: 'Not Found Bot By Token' })
+        )
+    } catch (error) {
+        respondOnError(res, resultCode.error, error.message);
+    }
 });
 
 router.post('/getbot', async (req, res) => {

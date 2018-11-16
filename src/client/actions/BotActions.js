@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {responseAction} from '../utils/common';
 
 import {
     BOT_GET_LIST,
@@ -13,23 +14,14 @@ import {
     BOT_UPDATE,
     BOT_UPDATE_SUCCESS,
     BOT_UPDATE_FAILURE
-} from './ActionTypes';
+} from '../constants/action-types';
 
 export function getBotsRequest (id) {
-    return (dispatch) => {
-        dispatch(getBots()); // getBots API start
+    return async (dispatch) => {
+        dispatch(getBots());
 
-        return axios.post('/bots/getbot', {id})
-        .then(res => {
-
-            if(res.data.code !== '9000' &&  res.data.data !== null){
-                dispatch(getBotSuccess(res.data.data.bot_list));
-            }
-            else{
-                dispatch(getBotFailure());
-            }
-            
-        })
+        return await axios.post('/bots/getbot', {id})
+        .then(res => responseAction(dispatch, res.data.code, res.data.data, getBotSuccess, res.data.data.bot_list, getBotFailure))
         .catch(e => dispatch(getBotFailure()));
     };
 }

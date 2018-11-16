@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormFeedback, TabContent, TabPane, Nav, NavItem, NavLink, ListGroup, ListGroupItem, Card, CardTitle } from 'reactstrap';
-import { Redirect, Route, Switch } from 'react-router-dom';
 import classnames from 'classnames';
 import { AppSwitch } from '@coreui/react';
 import { connect } from 'react-redux';
@@ -192,7 +191,7 @@ class Scenario extends Component {
         const {scenarioes, modal, newScenario, activeTab} = this.state;
 
         const scenario_list = scenarioes.map(
-            scenario => (<ScenarioCard key={scenario.id} thisscenario={scenario} onRemove={this.handleRemove} bot_id={this.props.match.params.bot_name} />)
+            scenario => (<ScenarioCard key={scenario.id} thisScenario={scenario} onRemove={this.handleRemove} botId={this.props.match.params.bot_name} />)
         );
 
         const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>;
@@ -319,15 +318,15 @@ const mapStateToProps = (state) => {
     return {
         scenario_list: state.parsing.scenario_list
     };
-  };
+};
   
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         getJsonRequest: (BotId) => {
             return dispatch(getJsonRequest(BotId));
         }
     };
-  };
+};
 
 //export default DetailScnario;
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Scenario));

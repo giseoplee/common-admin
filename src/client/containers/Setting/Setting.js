@@ -1,27 +1,36 @@
-import React, { Component, Fragment } from 'react';
-import { Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormFeedback, TabContent, TabPane, Nav, NavItem, NavLink, ListGroup, ListGroupItem, Card, CardTitle, Alert } from 'reactstrap';
+import React, { Component } from 'react';
+import { Container, Row, Col, Button, Card, CardTitle, Alert, Label, Input } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getBotDetail } from '../../actions/bot/settingActions';
 
 class Setting extends Component {
     constructor(props){
         super(props);
-
         this.state = {
-            bot_name: '',
-            bot_desc: '',
-            bot_api_url: ''
+            botName: '',
+            botDescription: '',
+            botUrl: ''
         }
     }
 
     componentDidMount(){
-        this.setState({
-            bot_name: 'bot_1',
-            bot_desc: '첫번째 봇',
-            bot_api_url: 'https://www.lotte.net'
-        });
+        this.props.getBotDetail({ id: 1 });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        log('nextProps > ', nextProps.botInformation);
+        const { botInformation } = nextProps;
+        this.props.botInformation !== nextProps.botInformation
+        ? this.setState({
+            botName: botInformation.data.name,
+            botDescription: botInformation.data.description,
+            botUrl: botInformation.data.token
+        }) : undefined
     }
 
     render(){
-        const {bot_name, bot_desc, bot_api_url} = this.state;
+        const { botName, botDescription, botUrl } = this.state;
         return(
             <Container fluid>
                 <Row>
@@ -29,11 +38,11 @@ class Setting extends Component {
                         <Card body>
                             <CardTitle>기본 설정</CardTitle>
                             <Label for="bot-name">이름</Label>
-                            <Input type="text" name="bot_name" id="bot-name" value={bot_name}/>
+                            <Input type="text" name="bot_name" id="bot-name" value={ botName }/>
                             <Label for="bot-desc">설명</Label>
-                            <Input type="text" name="bot_desc" id="bot-desc" value={bot_desc}/>
+                            <Input type="text" name="bot_desc" id="bot-desc" value={ botDescription }/>
                             <Label for="bot-api-url">API URL (변경 불가)</Label>
-                            <Input type="text" name="bot_api_url" id="bot-api-url" disabled value={bot_api_url}/>
+                            <Input type="text" name="bot_api_url" id="bot-api-url" disabled value={ botUrl }/>
                             <Col sm="12" className="text-right padding-none">
                                 <Button color="primary">저장</Button>
                             </Col>
@@ -56,4 +65,19 @@ class Setting extends Component {
     }
 }
 
-export default Setting;
+const mapStateToProps = (state) => {
+    log('Update State > ', state.bot.information);
+    return {
+        botInformation: state.bot.information
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getBotDetail: id => {
+            return dispatch(getBotDetail(id));
+        }
+    };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Setting));

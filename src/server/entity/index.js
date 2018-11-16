@@ -23,7 +23,10 @@ const user = sequelizeInstance.define('user', {
 
 const bot = sequelizeInstance.define('bot', {
     user_id: { type: sequelize.INTEGER(11), allowNull : true }, // false
+    token: { type : sequelize.STRING(255), allowNull : true }, // ㅅㅂ
     name: { type : sequelize.STRING(255), allowNull : true }, // false
+    imagePath: { type: sequelize.STRING(400), allowNull: true }, // 등록된 이미지 경로
+    imageUrl: { type: sequelize.STRING(500), allowNull: true }, // 이미지 명
     description: { type : sequelize.STRING(300), allowNull : true }, // false
     createdAt: { type: sequelize.DATE, allowNull: false },
     updatedAt: { type: sequelize.DATE, allowNull: false }

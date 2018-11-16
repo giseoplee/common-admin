@@ -14,7 +14,7 @@ import {
     BOT_UPDATE,
     BOT_UPDATE_SUCCESS,
     BOT_UPDATE_FAILURE
-} from './ActionTypes';
+} from '../constants/action-types';
 
 export function getBotsRequest (id) {
     return (dispatch) => {

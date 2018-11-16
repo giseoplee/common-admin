@@ -25,7 +25,8 @@ class Quarter extends Component {
     componentDidMount(){
         let data = [];
 
-        data = [{
+        data = [
+            {
                 id: "@49238423",
                 parent: null,
                 tree: 0,
@@ -101,7 +102,6 @@ class Quarter extends Component {
 
     removeQuarter(name) {
         let nextState = {};
-    
         nextState[name] = {
             id: "",
             name: ""
@@ -111,8 +111,8 @@ class Quarter extends Component {
     }
 
     handleChange(e, block){
-        if(e.target.value === "none"){
-            if(this.state.prev.id === block.id){
+        if (e.target.value === "none") {
+            if (this.state.prev.id === block.id) {
                 return this.setState({
                     blocks: this.state.blocks,
                     prev: {
@@ -122,7 +122,7 @@ class Quarter extends Component {
                     next: this.state.next
                 });
             }
-            if(this.state.next.id === block.id){
+            if (this.state.next.id === block.id) {
                 return this.setState({
                     blocks: this.state.blocks,
                     prev: this.state.prev,
@@ -133,9 +133,7 @@ class Quarter extends Component {
                 });
             }
         }
-
         let nextState = {};
-    
         nextState[e.target.value] = {
             id: block.id,
             name: block.name
@@ -145,30 +143,33 @@ class Quarter extends Component {
     }
 
     render(){
-        const {blocks, prev, next} = this.state;
-
-        const lastTdWidth = {
-            width: '150px'
-        };
-
-        const blockList = {blocks}.blocks.map(
+        const { blocks, prev, next } = this.state;
+        const lastTdWidth = { width: '150px' };
+        const blockList = blocks.map(
             (block, index) => (
                 <Fragment>
-                    {this.props.intent_name !== block.id.toString()? 
-                        <tr key={block.id}>
-                        <td>{index+1}</td>
-                        <td>{block.name}</td>
-                        <td>{block.type}</td>
-                        <td style={lastTdWidth}>
-                        <FormGroup>
-                            <Input type="select" bsSize="sm" name="select" id="blockKind" onChange={() => this.handleChange(event, block)} value={prev.id === block.id || next.id === block.id? prev.id === block.id? "prev":"next" : "none"}>
-                                <option value="none">----------</option>
-                                <option value="prev">이전 블록</option>
-                                <option value="next">다음 블록</option>
-                            </Input>
-                        </FormGroup>
-                        </td>
-                    </tr> : null}
+                    { this.props.intent_name !== block.id.toString() ? 
+                        <tr key={ block.id }>
+                            <td>{ index + 1 }</td>
+                            <td>{ block.name }</td>
+                            <td>{ block.type }</td>
+                            <td style={ lastTdWidth }>
+                            <FormGroup>
+                                <Input 
+                                    type="select" 
+                                    bsSize="sm" 
+                                    name="select" 
+                                    id="blockKind" 
+                                    onChange={ () => this.handleChange(event, block) } 
+                                    value={ prev.id === block.id || next.id === block.id ? prev.id === block.id ? "prev":"next" : "none" }>
+                                        <option value="none">----------</option>
+                                        <option value="prev">이전 블록</option>
+                                        <option value="next">다음 블록</option>
+                                </Input>
+                            </FormGroup>
+                            </td>
+                        </tr> 
+                        : null }
                 </Fragment>
             )
         );
@@ -179,22 +180,30 @@ class Quarter extends Component {
                     <Col sm="12" className="padding-none">
                         <Card body>
                             <CardTitle>블록 연결 설정</CardTitle>
-                            <CardSubtitle><code>화행 입력 전후에 호출할 블록을 선택할 수 있습니다.</code></CardSubtitle>
+                            <CardSubtitle>
+                                <code>
+                                    화행 입력 전후에 호출할 블록을 선택할 수 있습니다.
+                                </code>
+                            </CardSubtitle>
                             <CardText>
                                 <p>
                                     <Row>
                                         <Col sm="12">
                                             <InputGroup>
                                                 <InputGroupAddon addonType="prepend">
-                                                    <InputGroupText><i className="icon-arrow-right-circle icons d-block"></i></InputGroupText>
+                                                    <InputGroupText>
+                                                        <i className="icon-arrow-right-circle icons d-block"></i>
+                                                    </InputGroupText>
                                                 </InputGroupAddon>
-                                                <Input placeholder="이전 블록" name="prev" value={prev.id !== ""? prev.name:""} />
+                                                <Input placeholder="이전 블록" name="prev" value = { prev.id !== "" ? prev.name : "" } />
                                             </InputGroup>
                                             <InputGroup>
                                                 <InputGroupAddon addonType="prepend">
-                                                    <InputGroupText><i className="icon-arrow-left-circle icons d-block"></i></InputGroupText>
+                                                    <InputGroupText>
+                                                        <i className="icon-arrow-left-circle icons d-block"></i>
+                                                    </InputGroupText>
                                                 </InputGroupAddon>
-                                                <Input placeholder="다음 블록" name="next" value={next.id !== ""? next.name:""} />
+                                                <Input placeholder="다음 블록" name="next" value = { next.id !== "" ? next.name : "" } />
                                             </InputGroup>
                                         </Col>
                                     </Row>
@@ -207,7 +216,9 @@ class Quarter extends Component {
                                         <InputGroup>
                                             <Input name="search" />
                                             <InputGroupAddon addonType="append">
-                                                <InputGroupText><a href="#" className="transparent-a"><i className="icon-magnifier icons d-block"></i></a></InputGroupText>
+                                                <InputGroupText>
+                                                    <a href="#" className="transparent-a"><i className="icon-magnifier icons d-block"></i></a>
+                                                </InputGroupText>
                                             </InputGroupAddon>
                                         </InputGroup>
                                     </Col>
@@ -222,7 +233,7 @@ class Quarter extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {blockList}
+                                        { blockList }
                                     </tbody>
                                 </Table>
                                 <Row col="12">

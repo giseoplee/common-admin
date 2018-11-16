@@ -1,17 +1,17 @@
 import axios from 'axios';
-import {responseAction} from '../utils/common';
+import { responseAction } from '../utils/common';
 
 import {
     JSON_GET,
     JSON_GET_SUCCESS,
     JSON_GET_FAILURE
-} from './ActionTypes';
+} from '../constants/action-types';
 
 export function getJsonRequest(BotId){
     return (dispatch) => {
         dispatch(getJson()); // getBots API start
 
-        return axios.post('/bots/getJson', {BotId})
+        return axios.post('/bot/getJson', {BotId})
         .then(res => responseAction(dispatch, res, getJsonSuccess, res.data.data.data, getJsonFailure))
         .catch(e => dispatch(getJsonFailure()));
     };

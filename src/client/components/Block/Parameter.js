@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { Tooltip, PaginationLink, PaginationItem, Pagination, Table, Container, Row, Col, Badge, Button, Card, CardHeader, CardTitle, CardSubtitle, CardText, CardBody, CardFooter, Label, Input, FormGroup, FormFeedback, Form, ListGroup, ListGroupItem, InputGroup, InputGroupText, InputGroupAddon, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Tooltip, PaginationLink, PaginationItem, Pagination, Table, Row, Col, Card, CardTitle, CardSubtitle, CardText, CardBody, CardFooter, Label, Input, FormGroup, FormFeedback, Form, ListGroup, ListGroupItem, InputGroup, InputGroupText, InputGroupAddon, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import './Block.css';
 import { AppSwitch } from '@coreui/react'
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 class Parameter extends Component {
     constructor(props){
@@ -19,7 +19,8 @@ class Parameter extends Component {
     componentDidMount(){
         let data = [];
 
-        data = [{
+        data = [
+            {
                 id: "@49238423",
                 parent: null,
                 tree: 0,
@@ -43,13 +44,12 @@ class Parameter extends Component {
             }
         ];
 
-        if(this.props.intent_name === "new"){
+        if (this.props.intent_name === "new"){
             this.setState({
                 tooltipOpen: false,
                 parameteres: data
             });
-        }
-        else{
+        } else{
             this.setState({
                 tooltipOpen: false,
                 parameteres: [] // 흐름 내에서 현재 블록보다 이전 block id를 저장?
@@ -65,13 +65,8 @@ class Parameter extends Component {
     }
 
     render(){
-        const firstTdWidth = {
-            width: '100px'
-        };
-
-        const lastTdWidth = {
-            width: '300px'
-        };
+        const  firstTdWidth  = { width: '100px' };
+        const  lastTdWidth  = { width: '300px' };
 
         return (
             <Fragment>
@@ -88,15 +83,23 @@ class Parameter extends Component {
                                             <th>블록명</th>
                                             <th>입력값 타입</th>
                                             <th>대표 이름 설정&nbsp;<i className="icon-question icons" id="TooltipExample"></i></th>
-                                            <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target="TooltipExample" toggle={this.tooltipToggle}>
+                                            <Tooltip 
+                                                placement="bottom-start" 
+                                                isOpen={ this.state.tooltipOpen } 
+                                                target="TooltipExample" 
+                                                toggle={ this.tooltipToggle }>
                                                 블록명 대신 응답에서 사용할 이름을 설정할 수 있습니다. 
                                             </Tooltip>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td style={firstTdWidth}>
-                                                <AppSwitch checked size="sm" className={classnames('mx-1', 'vertical-middle')} variant={'pill'} color={'primary'}/>
+                                            <td style={ firstTdWidth }>
+                                                <AppSwitch 
+                                                    checked size="sm" 
+                                                    className={ classNames('mx-1', 'vertical-middle') } 
+                                                    variant={'pill'} 
+                                                    color={'primary'}/>
                                             </td>
                                             <td>
                                                 welcome
@@ -104,13 +107,18 @@ class Parameter extends Component {
                                             <td>
                                                 none, text
                                             </td>
-                                            <td style={lastTdWidth}>
+                                            <td style={ lastTdWidth }>
                                                 <Input type="text" name="0_parameter" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style={firstTdWidth}>
-                                                <AppSwitch checked size="sm" className={classnames('mx-1', 'vertical-middle')} variant={'pill'} color={'primary'}/>
+                                            <td style={ firstTdWidth }>
+                                                <AppSwitch 
+                                                    checked 
+                                                    size="sm" 
+                                                    className={ classNames('mx-1', 'vertical-middle') } 
+                                                    variant={'pill'}
+                                                    color={'primary'}/>
                                             </td>
                                             <td>
                                                 fallback
@@ -118,13 +126,18 @@ class Parameter extends Component {
                                             <td>
                                                 unknown
                                             </td>
-                                            <td style={lastTdWidth}>
+                                            <td style={ lastTdWidth }>
                                                 <Input type="text" name="0_parameter" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style={firstTdWidth}>
-                                                <AppSwitch checked size="sm" className={classnames('mx-1', 'vertical-middle')} variant={'pill'} color={'primary'}/>
+                                            <td style={ firstTdWidth }>
+                                                <AppSwitch 
+                                                    checked 
+                                                    size="sm" 
+                                                    className={ classNames('mx-1', 'vertical-middle') } 
+                                                    variant={'pill'}
+                                                    color={'primary'}/>
                                             </td>
                                             <td>
                                                 블록 1
@@ -132,13 +145,18 @@ class Parameter extends Component {
                                             <td>
                                                 text
                                             </td>
-                                            <td style={lastTdWidth}>
+                                            <td style={ lastTdWidth }>
                                                 <Input type="text" name="0_parameter" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style={firstTdWidth}>
-                                                <AppSwitch checked size="sm" className={classnames('mx-1', 'vertical-middle')} variant={'pill'} color={'primary'}/>
+                                            <td style={ firstTdWidth }>
+                                                <AppSwitch 
+                                                    checked 
+                                                    size="sm" 
+                                                    className={ classNames('mx-1', 'vertical-middle') } 
+                                                    variant={'pill'}
+                                                    color={'primary'}/>
                                             </td>
                                             <td>
                                                 블록 2
@@ -146,7 +164,7 @@ class Parameter extends Component {
                                             <td>
                                                 button
                                             </td>
-                                            <td style={lastTdWidth}>
+                                            <td style={ lastTdWidth }>
                                                 <Input type="text" name="1_parameter" />
                                             </td>
                                         </tr>

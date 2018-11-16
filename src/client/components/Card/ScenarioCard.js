@@ -11,9 +11,8 @@ class ScenarioCard extends Component {
     }
 
     handleRemove(){
-        const {thisscenario, onRemove} = this.props;
-
-        onRemove(thisscenario.id);
+        const { thisScenario, onRemove } = this.props;
+        onRemove(thisScenario.id);
     }
 
     onHref(url){
@@ -21,19 +20,18 @@ class ScenarioCard extends Component {
     }
 
     render(){
-        const {thisscenario: {id, title, blocks}, bot_id} = this.props;
-
-        let scenarioUrl = "/bot/"+bot_id+"/scenario/"+{id}.id;
+        const { thisScenario: { id, title, blocks }, botId } = this.props;
+        let scenarioUrl = `/bot/${botId}/scenario/${id}`;
 
         return (
             <Col xs="3">
                 <Card body>
                     <CardTitle>
-                        <Col xs="8" className="display-inline padding-none">{title}</Col>
-                        <Col xs="4" className="display-inline text-right padding-none"><Button close onClick={this.handleRemove}/></Col>
+                        <Col xs="8" className="display-inline padding-none">{ title }</Col>
+                        <Col xs="4" className="display-inline text-right padding-none"><Button close onClick={ this.handleRemove }/></Col>
                     </CardTitle>
-                    <CardText>{blocks.length}개의 블록</CardText>
-                    <Button onClick={() => {this.onHref(scenarioUrl);}}>수정하기</Button>
+                    <CardText>{ blocks.length }개의 블록</CardText>
+                    <Button onClick={ () => this.onHref(scenarioUrl) }>수정하기</Button>
                 </Card>
             </Col>
         );

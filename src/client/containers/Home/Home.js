@@ -34,10 +34,10 @@ class Home extends Component {
 
     this.state = {
       bots: [],
-      bot_number: 0,
+      botNumber: 0,
       modal: false,
-      newbotname:'',
-      newbotdesc:''
+      newBotName:'',
+      newBotDesc:''
     }
 
     this.toggle = this.toggle.bind(this);
@@ -72,10 +72,10 @@ class Home extends Component {
     
             this.setState({
               bots: data,
-              bot_number: data.length,
+              botNumber: data.length,
               modal: this.state.modal,
-              newbotname:this.state.newbotname,
-              newbotdesc: this.state.newbotdesc
+              newBotName:this.state.newBotName,
+              newBotDesc: this.state.newBotDesc
             });
 
             this.id = data.length;
@@ -104,10 +104,10 @@ class Home extends Component {
 
     this.setState({
       bots: data,
-      bot_number: data.length,
+      botNumber: data.length,
       modal: this.state.modal,
-      newbotname:this.state.newbotname,
-      newbotdesc: this.state.newbotdesc
+      newBotName:this.state.newBotName,
+      newBotDesc: this.state.newBotDesc
     });
 
     this.id = data.length;
@@ -115,28 +115,28 @@ class Home extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
 
-    if (nextState.bots.length !== nextState.bot_number) return false;
+    if (nextState.bots.length !== nextState.botNumber) return false;
     return true;
   }
 
   handleWrite(){
-    let newbotname = this.state.newbotname;
-    let newbotdesc = this.state.newbotdesc;
+    let newBotName = this.state.newBotName;
+    let newBotDesc = this.state.newBotDesc;
 
     let newbotlist = [...this.state.bots, {
       id: ++this.id,
-      name: newbotname,
-      description: newbotdesc,
+      name: newBotName,
+      description: newBotDesc,
       createdAt: new Date(),
       updatedAt: new Date()
     }];
 
     this.setState({
       bots: newbotlist,
-      bot_number: ++this.state.bot_number,
+      botNumber: ++this.state.botNumber,
       modal: false,
-      newbotname:'',
-      newbotdesc: ''
+      newBotName:'',
+      newBotDesc: ''
     });
   }
 
@@ -144,10 +144,10 @@ class Home extends Component {
 
     this.setState({
       bots: this.state.bots.filter(bot => bot.id !== id),
-      bot_number: --this.state.bot_number,
+      botNumber: --this.state.botNumber,
       modal: this.state.modal,
-      newbotname:'',
-      newbotdesc: ''
+      newBotName:'',
+      newBotDesc: ''
     });
   }
 
@@ -161,15 +161,15 @@ class Home extends Component {
   toggle() {
     this.setState({
       bots: this.state.bots,
-      bot_number: this.state.bot_number,
+      botNumber: this.state.botNumber,
       modal: !this.state.modal,
-      newbotname:this.state.newbotname,
-      newbotdesc: this.state.newbotdesc
+      newBotName:this.state.newBotName,
+      newBotDesc: this.state.newBotDesc
     });
   }
 
   render() {
-    const {bots, bot_number, modal, newbotname, newbotdesc} = this.state;
+    const {bots, botNumber, modal, newBotName, newBotDesc} = this.state;
 
     const bot_list = bots.map(
       bot => (<CardComponent key={bot.id} thisbot={bot} onRemove={this.handleRemove} />)
@@ -187,7 +187,7 @@ class Home extends Component {
             <Container fluid>
               <Row>
                 <Col className="align-items-center">
-                  <h4>내 봇<Badge color="danger">{bot_number}</Badge></h4>
+                  <h4>내 봇<Badge color="danger">{botNumber}</Badge></h4>
                 </Col>
               </Row>
               <Row>
@@ -210,10 +210,10 @@ class Home extends Component {
             <Form>
               <FormGroup>
               <Label for="bot-name">봇 이름</Label>
-              <Input type="text" name="newbotname" id="bot-name" invalid value={newbotname} onChange={this.handleChange}/>
+              <Input type="text" name="newBotName" id="bot-name" invalid value={newBotName} onChange={this.handleChange}/>
               <FormFeedback invalid>봇 이름을 설정해주세요!</FormFeedback>
               <Label for="bot-desc">봇 설명</Label>
-              <Input type="textarea" name="newbotdesc" id="bot-desc" value={newbotdesc} onChange={this.handleChange} onKeyPress={this.handleKeyPress}/>
+              <Input type="textarea" name="newBotDesc" id="bot-desc" value={newBotDesc} onChange={this.handleChange} onKeyPress={this.handleKeyPress}/>
               </FormGroup>
             </Form>
           </ModalBody>

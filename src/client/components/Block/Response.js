@@ -32,11 +32,10 @@ class Response extends Component {
         }));
     }
 
-    componentDidMount(){
-        if(this.props.intent_name === "new"){
+    componentDidMount() {
+        if (this.props.intent_name === "new") {
             this.current_response_id = -1;
-        }
-        else{
+        } else{
              // db에서 데이터 꺼내오는 건 여기서 한다!
             this.setState({
                 dropdownOpen: false,
@@ -49,15 +48,13 @@ class Response extends Component {
                     ]
                 }]
             });
-
             this.current_response_id = 0;
         }
     }
 
-    handleResponse (responseType) {
+    handleResponse(responseType) {
 
-        if(responseType == "text"){
-
+        if (responseType == "text") {
             let newResponse = {
                 "id": ++this.current_response_id,
                 "type": responseType,
@@ -78,33 +75,25 @@ class Response extends Component {
         });
     }
 
-    addText(id){
+    addText(id) {
         let responseIndex = this.state.responses.findIndex(x => x.id === id);
         let newResponses = JSON.parse(JSON.stringify(this.state.responses));
         newResponses[responseIndex].text.push("");
-
         this.setState({
             dropdownOpen: this.state.dropdownOpen,
             responses: newResponses
         });
     }
 
-    removeText(id, index){
-
-        console.log("id: "+id+", index: "+index);
-
+    removeText(id, index) {
         let responseIndex = this.state.responses.findIndex(x => x.id === id);
         let newResponses = JSON.parse(JSON.stringify(this.state.responses));
-
-        if(newResponses[responseIndex].text.length == 1){
-
+        if (newResponses[responseIndex].text.length == 1) {
             return (
                 alert('텍스트 응답은 한 개 이상이어야 합니다!')
             );
         }
-        
         newResponses[responseIndex].text.splice(index, 1);
-
         this.setState({
             dropdownOpen: this.state.dropdownOpen,
             responses: newResponses
@@ -115,7 +104,6 @@ class Response extends Component {
         let responseIndex = this.state.responses.findIndex(x => x.id === id);
         let newResponses = JSON.parse(JSON.stringify(this.state.responses));
         newResponses[responseIndex].text[index] = e.target.value;
-
         this.setState({
             dropdownOpen: this.state.dropdownOpen,
             responses: newResponses
@@ -123,20 +111,29 @@ class Response extends Component {
     }
     
     render (){
-        const {responses} = this.state;
-
+        const { responses } = this.state;
         const responsesList = responses.map(
             (response, index) => (
-                <ListGroupItem key={response.id}>
+                <ListGroupItem key={ response.id }>
                     <Row>
                         <Col sm="6">
-                            <h6>응답 {index+1}</h6>
+                            <h6>응답 { index + 1 }</h6>
                         </Col>
                         <Col sm="6" className="text-right">
-                            <Button color="ghost-success" onClick={() => {this.removeResponse(response.id);}}><i className="icon-trash icons"></i></Button>
+                            <Button color="ghost-success" onClick={ () => this.removeResponse(response.id) }>
+                                <i className="icon-trash icons"></i>
+                            </Button>
                         </Col>
                     </Row>
-                    {response.type === "text"? <TextType response={response} addText={this.addText} removeText={this.removeText} handleResponseTextChange={this.handleResponseTextChange}/> : null}
+                    {
+                        response.type === "text" 
+                        ? <TextType 
+                            response={ response }
+                            addText={ this.addText } 
+                            removeText={ this.removeText } 
+                            handleResponseTextChange={ this.handleResponseTextChange }/> 
+                        : null 
+                    }
                 </ListGroupItem>)
         );
 
@@ -144,21 +141,33 @@ class Response extends Component {
             <Row>
                 <Col sm="12" className="padding-none">
                     <Card body>
-                        <CardTitle>응답</CardTitle>
+                        <CardTitle>
+                            응답
+                        </CardTitle>
                         <CardText>
-                            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                            <Dropdown isOpen={ this.state.dropdownOpen } toggle={ this.toggle }>
                                 <DropdownToggle caret>
                                     새 반응 추가하기
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem tag="button" onClick={() => {this.handleResponse("text");}}><i className="icon-pencil icons"></i>텍스트 형식</DropdownItem>
-                                    <DropdownItem tag="button"><i className="icon-check icons"></i>되묻기</DropdownItem>
-                                    <DropdownItem tag="button"><i className="icon-link icons"></i>웹 URL</DropdownItem>
-                                    <DropdownItem tag="button"><i className="icon-picture icons"></i>이미지 URL</DropdownItem>
-                                    <DropdownItem tag="button"><i className="icon-grid icons"></i>버튼 리스트</DropdownItem>
+                                    <DropdownItem tag="button" onClick={ () => this.handleResponse("text") }>
+                                        <i className="icon-pencil icons"></i>텍스트 형식
+                                    </DropdownItem>
+                                    <DropdownItem tag="button">
+                                        <i className="icon-check icons"></i>되묻기
+                                    </DropdownItem>
+                                    <DropdownItem tag="button">
+                                        <i className="icon-link icons"></i>웹 URL
+                                    </DropdownItem>
+                                    <DropdownItem tag="button">
+                                        <i className="icon-picture icons"></i>이미지 URL
+                                    </DropdownItem>
+                                    <DropdownItem tag="button">
+                                        <i className="icon-grid icons"></i>버튼 리스트
+                                    </DropdownItem>
                                 </DropdownMenu>
                                 <ListGroup flush>
-                                    {responsesList}
+                                    { responsesList }
                                 </ListGroup>
                             </Dropdown>
                         </CardText>

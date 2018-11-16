@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { responseAction } from '../utils/common';
+import { responseAction } from '../../utils/common';
 
 import {
     AUTH_LOGIN,

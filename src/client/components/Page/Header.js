@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
+import { DropdownItem, DropdownMenu, DropdownToggle, Nav } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -20,7 +20,6 @@ const defaultProps = {};
 class Header extends Component {
   constructor(props){
     super(props);
-
     this.handleLogout = this.handleLogout.bind(this);
   }
 
@@ -33,10 +32,7 @@ class Header extends Component {
   }
 
   render() {
-
-    // eslint-disable-next-line
     const { children, ...attributes } = this.props;
-
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />

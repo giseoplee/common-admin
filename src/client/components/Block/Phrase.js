@@ -7,35 +7,35 @@ class Phrase extends Component {
 
         this.state = {
             trainingPhrases: [],
-            new_training_phrase: ''
+            newTrainingPhrase: ''
         };
 
         this.handlePhrase = this.handlePhrase.bind(this);
         this.removePhrase = this.removePhrase.bind(this);
     }
 
-    current_phrase_id = -1;
+    currentPhraseId = -1;
 
-    componentDidMount(){
+    componentDidMount() {
         if(this.props.intent_name === "new"){
-            this.current_phrase_id = -1;
+            this.currentPhraseId = -1;
         }
         else{
-            // db에서 화행 읽어와서 current_phrase_id와 setState 설정 
+            // db에서 화행 읽어와서 currentPhraseId와 setState 설정 
         }
     }
 
-    removePhrase(id){
+    removePhrase(id) {
         this.setState({
             trainingPhrases: this.state.trainingPhrases.filter(phrase => phrase.id !== id),
-            new_training_phrase: this.state.new_training_phrase
+            newTrainingPhrase: this.state.newTrainingPhrase
         });
     }
 
     handlePhrase() {
         let newPhrase = {
-            id: ++this.current_phrase_id,
-            value: this.state.new_training_phrase
+            id: ++this.currentPhraseId,
+            value: this.state.newTrainingPhrase
         }
 
         let newPhraseList = [
@@ -45,23 +45,25 @@ class Phrase extends Component {
 
         this.setState({
             trainingPhrases: newPhraseList,
-            new_training_phrase: ''
+            newTrainingPhrase: ''
         });
     }
 
     
 
     render(){
-        const {trainingPhrases} = this.state;
-
-        const {handleKeyPress, handleChange} = this.props;
-
+        const { trainingPhrases } = this.state;
+        const { handleKeyPress, handleChange } = this.props;
         const trainingPhrasesList = trainingPhrases.map(
-            phrase => (
-            <ListGroupItem key={phrase.id}>
-                <Col sm="9" className="display-inline padding-none">{phrase.value}</Col>
+            ({ id, value }) => (
+            <ListGroupItem key={ id }>
+                <Col sm="9" className="display-inline padding-none">{ value }</Col>
                 <Col sm="3" className="text-right display-inline padding-none">
-                    <Button color="ghost-success" onClick={() => {this.removePhrase(phrase.id);}}><i className="icon-trash icons"></i></Button>
+                    <Button 
+                        color="ghost-success" 
+                        onClick={ () => this.removePhrase(id) }>
+                        <i className="icon-trash icons"></i>
+                    </Button>
                 </Col>
             </ListGroupItem>)
         );
@@ -74,12 +76,18 @@ class Phrase extends Component {
                         <CardText>
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">
-                                    <InputGroupText><i className="icon-speech icons d-block"></i></InputGroupText>
+                                    <InputGroupText>
+                                        <i className="icon-speech icons d-block"></i>
+                                    </InputGroupText>
                                 </InputGroupAddon>
-                                <Input name="new_training_phrase" onChange={() => {handleChange(event, this);}} value={this.state.new_training_phrase} onKeyPress={() => {handleKeyPress(event, this.handlePhrase);}}/>
+                                <Input 
+                                    name="newTrainingPhrase" 
+                                    onChange={ () => handleChange(event, this) } 
+                                    value={ this.state.newTrainingPhrase } 
+                                    onKeyPress={ () => handleKeyPress(event, this.handlePhrase) }/>
                             </InputGroup>
                             <ListGroup flush>
-                                {trainingPhrasesList}
+                                { trainingPhrasesList }
                             </ListGroup>
                         </CardText>
                     </Card>

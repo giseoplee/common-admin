@@ -1,10 +1,13 @@
 const path = require('path');
+const { HotModuleReplacementPlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const outputDirectory = path.join(__dirname, '..', 'dist');
 
 module.exports = {
-  entry: './src/client/index.js',
+  entry: {
+    index : ['babel-polyfill', './src/client/index.js']
+  },
   output: {
     path: outputDirectory,
     filename: 'bundle.js'
@@ -39,13 +42,22 @@ module.exports = {
     open: true,
     hot: true,
     proxy: {
-      '/auth': 'http://localhost:9090',
-      '/bots': 'http://localhost:9090'
+      // '/api': 'http://localhost:9090',
+      '/api': 'http://localhost:9090'
     }
   },
+  devtool: 'inline-source-map',
+  // mode: 'development',
   plugins: [
+    new HotModuleReplacementPlugin(),
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
+      // inject: true,
+      // minify: {
+      //   removeComments: true,
+      //   collapseWhitespace: true,
+      //   removeAttributeQuotes: true
+      // },
       template: './public/index.html',
       favicon: './public/lotte_logo.png'
     })
